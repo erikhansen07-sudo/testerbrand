@@ -526,6 +526,208 @@
     }
 
     body * { transition-property:background,background-color,color,border-color,box-shadow; transition-duration:0.35s; transition-timing-function:ease; }
+
+    /* ══════════════════════════════════════
+       BOOKING SYSTEM
+    ══════════════════════════════════════ */
+    .bk-overlay { position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,0.92);display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s; }
+    .bk-overlay.open { opacity:1;pointer-events:all; }
+    .bk-modal { width:100%;max-width:680px;max-height:88vh;background:var(--bg2);border:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;position:relative; }
+    [data-theme="tactical"] .bk-modal { border-top:3px solid var(--primary); }
+    [data-theme="arena"]    .bk-modal { border-color:var(--border2); }
+    .bk-header { display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.75rem;border-bottom:1px solid var(--border);flex-shrink:0; }
+    .bk-logo { font-family:var(--f-display);font-size:1.2rem;color:var(--white);letter-spacing:0.1em; }
+    .bk-logo span { color:var(--primary); }
+    [data-theme="sport"] .bk-logo { font-weight:900;font-size:1.3rem;letter-spacing:-0.01em; }
+    [data-theme="arena"] .bk-logo { font-size:0.9rem;letter-spacing:0.12em; }
+    .bk-close { background:none;border:none;cursor:pointer;color:var(--gray);font-size:1.4rem;line-height:1;padding:0.25rem; }
+    .bk-close:hover { color:var(--white); }
+    .bk-progress { display:flex;padding:0.75rem 1.75rem;gap:0.4rem;flex-shrink:0;border-bottom:1px solid rgba(255,255,255,0.04); }
+    .bk-prog-step { flex:1;height:3px;background:rgba(255,255,255,0.08);border-radius:2px;transition:background 0.3s; }
+    .bk-prog-step.done { background:var(--primary); }
+    .bk-prog-step.active { background:var(--primary);opacity:0.45; }
+    .bk-step-label { padding:0.6rem 1.75rem 0;font-family:var(--f-label);font-size:0.6rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary);opacity:0.7;flex-shrink:0; }
+    [data-theme="arena"] .bk-step-label { font-family:'Orbitron',sans-serif;font-size:0.52rem; }
+    .bk-body { overflow-y:auto;flex:1;padding:1.5rem 1.75rem; }
+    .bk-footer { display:flex;justify-content:space-between;align-items:center;padding:1.1rem 1.75rem;border-top:1px solid var(--border);flex-shrink:0; }
+    .bk-total { font-family:var(--f-label);font-size:0.72rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray); }
+    .bk-total strong { color:var(--primary);font-size:1.2rem;display:block;margin-top:0.1rem;font-family:var(--f-display); }
+    [data-theme="sport"] .bk-total strong { font-weight:900; }
+    .bk-btns { display:flex;gap:0.75rem; }
+    .bk-btn-back { font-family:var(--f-label);font-weight:700;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:none;border:1px solid rgba(255,255,255,0.12);color:var(--gray);padding:0.7rem 1.5rem;cursor:pointer;transition:all 0.2s; }
+    .bk-btn-back:hover { color:var(--white);border-color:rgba(255,255,255,0.3); }
+    .bk-btn-next { font-family:var(--f-label);font-weight:700;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;background:var(--primary);color:var(--bg);padding:0.7rem 2rem;cursor:pointer;border:none;transition:all 0.2s; }
+    .bk-btn-next:hover { filter:brightness(1.1); }
+    [data-theme="tactical"] .bk-btn-next,[data-theme="tactical"] .bk-btn-back { clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%); }
+    [data-theme="arena"]    .bk-btn-next,[data-theme="arena"]    .bk-btn-back { font-family:'Orbitron',sans-serif;font-size:0.62rem; }
+
+    /* Step 1 — Session cards */
+    .bk-session-cards { display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem; }
+    .bk-session-card { padding:1.5rem 1rem;border:1px solid var(--border);cursor:pointer;transition:all 0.2s;position:relative;text-align:center;background:var(--bg3); }
+    [data-theme="tactical"] .bk-session-card { clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);border:none; }
+    [data-theme="arena"]    .bk-session-card { border-color:var(--border2); }
+    .bk-session-card:hover,.bk-session-card.selected { border-color:var(--primary);background:rgba(0,229,100,0.05); }
+    .bk-session-card.selected::after { content:'✓';position:absolute;top:0.5rem;right:0.75rem;font-size:0.75rem;color:var(--primary); }
+    .bk-sc-price { font-family:var(--f-display);font-size:1.2rem;color:var(--primary);line-height:1;margin-bottom:0.4rem; }
+    [data-theme="sport"] .bk-sc-price { font-weight:900; }
+    [data-theme="arena"] .bk-sc-price { font-size:1rem; }
+    .bk-sc-name { font-family:var(--f-head);font-weight:700;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--white);margin-bottom:0.4rem; }
+    [data-theme="arena"] .bk-sc-name { font-family:'Orbitron',sans-serif;font-size:0.65rem; }
+    .bk-sc-desc { font-size:0.7rem;color:var(--gray);line-height:1.5; }
+
+    /* Step 2 — Calendar */
+    .bk-cal-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem; }
+    .bk-cal-title { font-family:var(--f-head);font-weight:700;font-size:1rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--white); }
+    .bk-cal-nav { background:none;border:1px solid var(--border);color:var(--gray);padding:0.4rem 0.85rem;cursor:pointer;font-size:0.85rem;transition:all 0.2s; }
+    .bk-cal-nav:hover { color:var(--white);border-color:rgba(255,255,255,0.3); }
+    .bk-cal-grid { display:grid;grid-template-columns:repeat(7,1fr);gap:3px; }
+    .bk-cal-dow { text-align:center;font-family:var(--f-label);font-size:0.58rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--gray);padding-bottom:0.5rem; }
+    .bk-cal-day { aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-family:var(--f-body);font-size:0.8rem;color:var(--gray);cursor:pointer;border:1px solid transparent;border-radius:2px;transition:all 0.15s; }
+    .bk-cal-day.available { color:var(--white); }
+    .bk-cal-day.available:hover { border-color:var(--primary);color:var(--primary); }
+    .bk-cal-day.selected { background:var(--primary);color:var(--bg);border-color:var(--primary);font-weight:700; }
+    .bk-cal-day.past { opacity:0.22;cursor:default; }
+    .bk-cal-day.empty { cursor:default; }
+    .bk-time-slots { display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;margin-top:1.25rem; }
+    .bk-slot { padding:0.5rem;text-align:center;border:1px solid var(--border);font-family:var(--f-label);font-size:0.7rem;font-weight:700;letter-spacing:0.1em;color:var(--gray);cursor:pointer;transition:all 0.15s; }
+    .bk-slot.available { color:var(--white); }
+    .bk-slot.available:hover { border-color:var(--primary);color:var(--primary); }
+    .bk-slot.selected { background:var(--primary);color:var(--bg);border-color:var(--primary); }
+
+    /* Step 3 — Form */
+    .bk-form { display:flex;flex-direction:column;gap:1rem; }
+    .bk-field { display:flex;flex-direction:column;gap:0.4rem; }
+    .bk-field-row { display:grid;grid-template-columns:1fr 1fr;gap:1rem; }
+    .bk-label { font-family:var(--f-label);font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--primary);opacity:0.8; }
+    [data-theme="arena"] .bk-label { font-family:'Orbitron',sans-serif;font-size:0.52rem; }
+    .bk-input { background:var(--bg3);border:1px solid var(--border);color:var(--white);padding:0.7rem 1rem;font-family:var(--f-body);font-size:0.88rem;outline:none;transition:border 0.2s;width:100%; }
+    [data-theme="arena"] .bk-input { border-color:var(--border2); }
+    .bk-input:focus { border-color:var(--primary); }
+    .bk-input::placeholder { color:rgba(255,255,255,0.18); }
+    select.bk-input { cursor:pointer; }
+    select.bk-input option { background:#111; }
+    .bk-size-row { display:flex;align-items:center;gap:1rem; }
+    .bk-size-btn { width:34px;height:34px;background:var(--bg3);border:1px solid var(--border);color:var(--white);font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;flex-shrink:0; }
+    .bk-size-btn:hover { border-color:var(--primary);color:var(--primary); }
+    .bk-size-val { font-family:var(--f-display);font-size:1.8rem;color:var(--white);min-width:2.5rem;text-align:center; }
+    [data-theme="sport"] .bk-size-val { font-weight:900; }
+
+    /* Step 4 — Add-ons */
+    .bk-addon { border:1px solid var(--border);margin-bottom:1rem;overflow:hidden; }
+    [data-theme="arena"] .bk-addon { border-color:var(--border2); }
+    .bk-addon-toggle { display:flex;align-items:center;gap:1rem;padding:1.1rem 1.5rem;cursor:pointer;background:var(--bg3);user-select:none; }
+    .bk-addon-toggle:hover { background:rgba(0,229,100,0.04); }
+    .bk-addon-check { width:20px;height:20px;border:2px solid rgba(255,255,255,0.2);border-radius:2px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s;font-size:0.72rem;color:var(--bg); }
+    .bk-addon.active .bk-addon-check { background:var(--primary);border-color:var(--primary); }
+    .bk-addon-title { font-family:var(--f-head);font-weight:700;font-size:0.88rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--white); }
+    [data-theme="arena"] .bk-addon-title { font-family:'Orbitron',sans-serif;font-size:0.72rem; }
+    .bk-addon-desc { font-size:0.75rem;color:var(--gray);margin-left:auto;font-family:var(--f-body);text-align:right; }
+    .bk-addon-body { display:none;padding:1.5rem;border-top:1px solid var(--border); }
+    .bk-addon.active .bk-addon-body { display:block; }
+
+    /* Invite card */
+    .bk-invite-preview { border:1px solid var(--border);overflow:hidden;margin-top:0.75rem; }
+    .bk-invite-card { padding:2rem 1.75rem;position:relative;overflow:hidden;min-height:160px; }
+    [data-theme="tactical"] .bk-invite-card { background:linear-gradient(135deg,#0D1A10,#090C07); }
+    [data-theme="sport"]    .bk-invite-card { background:#080808; }
+    [data-theme="arena"]    .bk-invite-card { background:linear-gradient(135deg,#05080E,#0C1220); }
+    .bk-ic-bg { position:absolute;inset:0;pointer-events:none; }
+    [data-theme="tactical"] .bk-ic-bg { background:linear-gradient(rgba(0,229,100,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,100,0.04) 1px,transparent 1px);background-size:28px 28px; }
+    [data-theme="sport"]    .bk-ic-bg { background:repeating-linear-gradient(-45deg,transparent,transparent 18px,rgba(0,229,100,0.015) 18px,rgba(0,229,100,0.015) 19px); }
+    [data-theme="arena"]    .bk-ic-bg { background:radial-gradient(circle,rgba(0,229,100,0.07) 1px,transparent 1px);background-size:20px 20px; }
+    .bk-ic-eyebrow { font-family:var(--f-label);font-size:0.55rem;font-weight:700;letter-spacing:0.45em;text-transform:uppercase;color:var(--primary);margin-bottom:0.4rem;opacity:0.8;position:relative;z-index:1; }
+    [data-theme="arena"] .bk-ic-eyebrow { font-family:'Orbitron',sans-serif;font-size:0.48rem; }
+    .bk-ic-logo { font-family:var(--f-display);font-size:2rem;color:var(--white);letter-spacing:0.08em;line-height:1;position:relative;z-index:1;margin-bottom:0.5rem; }
+    [data-theme="sport"] .bk-ic-logo { font-weight:900;font-size:2.2rem;letter-spacing:-0.02em; }
+    [data-theme="arena"] .bk-ic-logo { font-size:1.4rem;letter-spacing:0.12em; }
+    .bk-ic-logo span { color:var(--primary); }
+    .bk-ic-for { font-family:var(--f-head);font-weight:700;font-size:1.05rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--white);position:relative;z-index:1;margin-bottom:0.3rem; }
+    [data-theme="arena"] .bk-ic-for { font-family:'Orbitron',sans-serif;font-size:0.85rem; }
+    .bk-ic-details { font-family:var(--f-body);font-size:0.78rem;color:rgba(255,255,255,0.45);position:relative;z-index:1; }
+    .bk-ic-tiles { position:absolute;right:1.5rem;bottom:1.25rem;display:flex;gap:4px;z-index:1; }
+    .bk-ic-tile { width:14px;height:14px;border-radius:2px; }
+
+    /* Pizza */
+    .bk-pizza-count { display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem; }
+    .bk-pizza-label { font-family:var(--f-head);font-weight:700;font-size:0.9rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--white); }
+    .bk-toppings { display:grid;grid-template-columns:1fr 1fr;gap:0.4rem; }
+    .bk-topping { display:flex;align-items:center;gap:0.75rem;padding:0.6rem 1rem;border:1px solid var(--border);cursor:pointer;transition:all 0.15s;background:var(--bg);font-family:var(--f-body);font-size:0.8rem;color:var(--gray); }
+    [data-theme="arena"] .bk-topping { border-color:var(--border2); }
+    .bk-topping:hover,.bk-topping.selected { border-color:var(--primary);color:var(--white); }
+    .bk-topping.selected { background:rgba(0,229,100,0.05); }
+    .bk-topping-dot { width:10px;height:10px;border:2px solid rgba(255,255,255,0.2);border-radius:50%;flex-shrink:0;transition:all 0.15s; }
+    .bk-topping.selected .bk-topping-dot { background:var(--primary);border-color:var(--primary); }
+    .bk-pizza-total { margin-top:0.9rem;font-family:var(--f-label);font-size:0.75rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--primary); }
+
+    /* Step 5 — Waiver */
+    .bk-waiver-text { background:var(--bg3);border:1px solid var(--border);padding:1.1rem;max-height:150px;overflow-y:auto;font-size:0.75rem;color:var(--gray);line-height:1.75;margin-bottom:1.1rem; }
+    [data-theme="arena"] .bk-waiver-text { border-color:var(--border2); }
+    .bk-checkbox-row { display:flex;align-items:flex-start;gap:0.75rem;margin-bottom:0.85rem;cursor:pointer; }
+    .bk-checkbox { width:18px;height:18px;border:2px solid rgba(255,255,255,0.2);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:0.12rem;transition:all 0.2s;font-size:0.65rem;color:var(--bg); }
+    .bk-checkbox.checked { background:var(--primary);border-color:var(--primary); }
+    .bk-checkbox-label { font-size:0.8rem;color:var(--gray);line-height:1.5; }
+    .bk-checkbox-label strong { color:var(--white); }
+    .bk-sig-label { font-family:var(--f-label);font-size:0.6rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--primary);opacity:0.8;margin-bottom:0.5rem; }
+    .bk-minor-box { background:rgba(26,110,255,0.05);border:1px solid rgba(26,110,255,0.2);padding:1.1rem;margin-top:0.75rem; }
+    .bk-minor-note { font-size:0.73rem;color:rgba(100,160,255,0.8);margin-top:0.6rem;line-height:1.5; }
+
+    /* Step 6 — Payment */
+    .bk-order-summary { background:var(--bg3);border:1px solid var(--border);padding:1.1rem;margin-bottom:1.25rem; }
+    [data-theme="arena"] .bk-order-summary { border-color:var(--border2); }
+    .bk-order-row { display:flex;justify-content:space-between;font-family:var(--f-body);font-size:0.83rem;color:var(--gray);padding:0.3rem 0;border-bottom:1px solid rgba(255,255,255,0.04); }
+    .bk-order-row:last-child { border-bottom:none;color:var(--white);font-weight:600;padding-top:0.65rem;margin-top:0.2rem; }
+    .bk-order-row span:last-child { color:var(--primary); }
+    .bk-order-row:last-child span:last-child { font-family:var(--f-display);font-size:1.25rem; }
+    [data-theme="sport"] .bk-order-row:last-child span:last-child { font-weight:900; }
+    .bk-card-note { font-size:0.7rem;color:var(--gray);text-align:center;margin-top:0.6rem;opacity:0.55; }
+
+    /* Step 7 — Confirmation */
+    .bk-confirm-header { text-align:center;padding:0.5rem 0 1.5rem; }
+    .bk-confirm-check { width:60px;height:60px;background:var(--primary);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.1rem;font-size:1.6rem;color:var(--bg); }
+    .bk-confirm-title { font-family:var(--f-display);font-size:2rem;color:var(--white);letter-spacing:0.06em;margin-bottom:0.25rem; }
+    [data-theme="sport"] .bk-confirm-title { font-weight:900;letter-spacing:-0.02em;font-size:2.2rem; }
+    [data-theme="arena"] .bk-confirm-title { font-size:1.4rem;letter-spacing:0.1em; }
+    .bk-confirm-ref { font-family:monospace;font-size:0.72rem;color:var(--gray);letter-spacing:0.15em; }
+    .bk-confirm-ref strong { color:var(--primary); }
+    .bk-confirm-details { display:grid;grid-template-columns:1fr 1fr;gap:0.65rem;margin:1.1rem 0; }
+    .bk-cd { background:var(--bg3);border:1px solid var(--border);padding:0.85rem 1rem; }
+    [data-theme="arena"] .bk-cd { border-color:var(--border2); }
+    .bk-cd-label { font-family:var(--f-label);font-size:0.56rem;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--primary);margin-bottom:0.25rem;opacity:0.8; }
+    .bk-cd-val { font-family:var(--f-head);font-weight:700;font-size:0.88rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--white); }
+    [data-theme="arena"] .bk-cd-val { font-family:'Orbitron',sans-serif;font-size:0.72rem; }
+    .bk-info-strip { background:rgba(0,229,100,0.05);border:1px solid rgba(0,229,100,0.18);padding:0.9rem 1.1rem;display:flex;align-items:flex-start;gap:0.75rem;margin-top:0.65rem;font-size:0.78rem;color:var(--gray);line-height:1.55; }
+    .bk-info-strip strong { color:var(--white); }
+
+    /* Admin calendar */
+    .adm-overlay { position:fixed;inset:0;z-index:1001;background:rgba(0,0,0,0.96);display:flex;align-items:flex-start;justify-content:center;padding:110px 1rem 1rem;opacity:0;pointer-events:none;transition:opacity 0.3s;overflow-y:auto; }
+    .adm-overlay.open { opacity:1;pointer-events:all; }
+    .adm-modal { width:100%;max-width:1020px;background:var(--bg2);border:1px solid var(--border); }
+    .adm-header { display:flex;align-items:center;justify-content:space-between;padding:1.1rem 1.75rem;border-bottom:1px solid var(--border);gap:1rem;flex-wrap:wrap; }
+    .adm-title { font-family:var(--f-display);font-size:1.3rem;color:var(--white);letter-spacing:0.1em; }
+    [data-theme="sport"] .adm-title { font-weight:900;letter-spacing:-0.01em; }
+    [data-theme="arena"] .adm-title { font-size:1rem;letter-spacing:0.12em; }
+    .adm-week-nav { display:flex;align-items:center;gap:0.75rem; }
+    .adm-week-label { font-family:var(--f-label);font-size:0.7rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--gray);min-width:180px;text-align:center; }
+    .adm-cal-wrap { overflow-x:auto; }
+    .adm-grid { display:grid;grid-template-columns:56px repeat(7,1fr);min-width:560px; }
+    .adm-head { padding:0.65rem 0.4rem;text-align:center;font-family:var(--f-label);font-size:0.58rem;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border-bottom:1px solid var(--border);border-right:1px solid rgba(255,255,255,0.04); }
+    .adm-head:last-child { border-right:none; }
+    .adm-head.today { color:var(--primary); }
+    .adm-time-col { font-family:monospace;font-size:0.6rem;color:var(--gray);padding:0.5rem 0.4rem;border-right:1px solid var(--border);border-bottom:1px solid rgba(255,255,255,0.03);text-align:right;vertical-align:top;line-height:1; }
+    .adm-cell { border-right:1px solid rgba(255,255,255,0.03);border-bottom:1px solid rgba(255,255,255,0.03);min-height:46px;padding:3px; }
+    .adm-cell:last-child { border-right:none; }
+    .adm-bk { padding:0.28rem 0.5rem;font-family:var(--f-label);font-size:0.58rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;cursor:default;border-radius:1px;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+    .adm-bk.t-open    { background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.6); }
+    .adm-bk.t-group   { background:rgba(0,229,100,0.15);color:#00E564;border-left:2px solid #00E564; }
+    .adm-bk.t-gridout { background:rgba(26,110,255,0.15);color:#1A6EFF;border-left:2px solid #1A6EFF; }
+    .adm-legend { display:flex;gap:1.5rem;padding:0.9rem 1.75rem;border-top:1px solid var(--border);flex-wrap:wrap; }
+    .adm-leg { display:flex;align-items:center;gap:0.5rem;font-family:var(--f-label);font-size:0.6rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--gray); }
+    .adm-leg-dot { width:8px;height:8px;border-radius:50%;flex-shrink:0; }
+    .adm-empty { padding:3rem;text-align:center;font-family:var(--f-label);font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:rgba(255,255,255,0.15); }
+
+    /* Admin button */
+    .adm-open-btn { display:block;text-align:center;margin:1.5rem auto 0;padding:0.55rem 1.5rem;font-family:var(--f-label);font-size:0.58rem;font-weight:700;letter-spacing:0.22em;text-transform:uppercase;color:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.06);cursor:pointer;background:none;transition:all 0.2s;max-width:200px; }
+    .adm-open-btn:hover { color:rgba(255,255,255,0.35);border-color:rgba(255,255,255,0.14); }
   </style>
 </head>
 <body data-theme="tactical" data-view="identity">
@@ -758,7 +960,7 @@
       <div class="wsn-links">
         <a href="#">Experience</a><a href="#">Sessions</a><a href="#">Events</a><a href="#">About</a>
       </div>
-      <a class="wsn-cta">BOOK NOW</a>
+      <a class="wsn-cta" onclick="openBooking('open')" style="cursor:pointer">BOOK NOW</a>
     </nav>
 
     <section class="wsh">
@@ -779,8 +981,8 @@
         <h1 class="wsh-title">LIGHT.<br>STRIKE.<br><span class="ht-green">CLEAR.</span></h1>
         <p class="wsh-sub">An LED tile arena where every floor tile is a decision. Strike green. Dodge red. Breathe blue. 18 minutes of the most fun you've ever worked for.</p>
         <div class="wsh-btns">
-          <a class="btn btn-primary">BOOK YOUR SESSION</a>
-          <a class="btn btn-outline">EXPLORE MODES</a>
+          <a class="btn btn-primary" onclick="openBooking('open')" style="cursor:pointer">BOOK YOUR SESSION</a>
+          <a class="btn btn-outline" onclick="openBooking('open')" style="cursor:pointer">EXPLORE MODES</a>
         </div>
       </div>
     </section>
@@ -823,21 +1025,21 @@
             <div class="ws-card-price" style="font-size:1.4rem;color:var(--gray);">Open Play</div>
             <h3>Open Session</h3>
             <p>Walk in and get on the grid. Two 18-minute rounds. All game modes. Scoreboard tracking. No reservation required — subject to availability.</p>
-            <a class="btn btn-outline">CHECK AVAILABILITY</a>
+            <a class="btn btn-outline" onclick="openBooking('open')" style="cursor:pointer">CHECK AVAILABILITY</a>
           </div>
           <div class="ws-card ws-card-featured">
             <div class="ws-card-badge badge-green">RESERVED</div>
             <div class="ws-card-price">From $499<span style="display:block;font-size:0.75rem;color:var(--gray);font-family:var(--f-body);margin-top:0.25rem;">Weekdays from $429</span></div>
             <h3>Group Night</h3>
             <p>Up to 8 players. Reserved time slot. Dedicated game host. Custom modes. Built for birthdays, squads, date nights, and rivals.</p>
-            <a class="btn btn-primary">RESERVE NOW</a>
+            <a class="btn btn-primary" onclick="openBooking('group')" style="cursor:pointer">RESERVE NOW</a>
           </div>
           <div class="ws-card">
             <div class="ws-card-badge">FULL TAKEOVER</div>
             <div class="ws-card-price">From $1,499</div>
             <h3>Full Gridout</h3>
             <p>All 3 arenas. Entire venue, yours exclusively. Birthdays, corporate events, team challenges. Catering and custom programming available.</p>
-            <a class="btn btn-outline">INQUIRE</a>
+            <a class="btn btn-outline" onclick="openBooking('gridout')" style="cursor:pointer">INQUIRE</a>
           </div>
         </div>
       </div>
@@ -848,7 +1050,7 @@
       <div class="wss-inner">
         <div class="ws-h2">THE GRID<br>FIGHTS <span class="accent">BACK.</span></div>
         <p>Find out if you can keep up.</p>
-        <a class="btn btn-primary">BOOK YOUR SESSION</a>
+        <a class="btn btn-primary" onclick="openBooking('open')" style="cursor:pointer">BOOK YOUR SESSION</a>
       </div>
     </section>
 
@@ -857,6 +1059,7 @@
       <div class="ws-footer-info">Carlsbad, CA · Open Daily 10am–10pm</div>
       <div class="ws-footer-links"><a href="#">Sessions</a><a href="#">Events</a><a href="#">Contact</a></div>
     </div>
+    <button class="adm-open-btn" onclick="openAdmin()">STAFF ADMIN</button>
   </div><!-- /ws-tactical -->
 
   <!-- ═══ SPORT WEBSITE ═══ -->
@@ -866,7 +1069,7 @@
       <div class="wsn-links">
         <a href="#">Sessions</a><a href="#">Compete</a><a href="#">Events</a>
       </div>
-      <a class="wsn-cta">BOOK YOUR LANE</a>
+      <a class="wsn-cta" onclick="openBooking('open')" style="cursor:pointer">BOOK YOUR LANE</a>
     </nav>
 
     <section class="wsh">
@@ -887,8 +1090,8 @@
         <h1 class="wsh-title"><span class="ht-outline">GRID</span><span class="ht-green">STRIKE</span></h1>
         <p class="wsh-sub">The most athletic thing you'll do indoors. LED floor. Real competition. Zero excuses.</p>
         <div class="wsh-btns">
-          <a class="btn btn-primary">BOOK YOUR LANE</a>
-          <a class="btn btn-outline">VIEW SESSIONS</a>
+          <a class="btn btn-primary" onclick="openBooking('open')" style="cursor:pointer">BOOK YOUR LANE</a>
+          <a class="btn btn-outline" onclick="openBooking('open')" style="cursor:pointer">VIEW SESSIONS</a>
         </div>
       </div>
     </section>
@@ -935,21 +1138,21 @@
             <div class="ws-card-price" style="font-size:1.4rem;color:var(--gray);">Open Play</div>
             <h3>Open Session</h3>
             <p>Walk in and play. Two rounds, all modes, full scoreboard. Subject to availability — no reservation required.</p>
-            <a class="btn btn-outline">CHECK AVAILABILITY</a>
+            <a class="btn btn-outline" onclick="openBooking('open')" style="cursor:pointer">CHECK AVAILABILITY</a>
           </div>
           <div class="ws-card ws-card-featured">
             <div class="ws-card-badge badge-green">RESERVED</div>
             <div class="ws-card-price">From $499<span style="display:block;font-size:0.75rem;color:var(--gray);font-family:var(--f-body);margin-top:0.25rem;">Weekdays from $429</span></div>
             <h3>Group Night</h3>
             <p>Up to 8 players. Reserved arena. Dedicated game host. Your crew vs the grid vs each other.</p>
-            <a class="btn btn-primary">RESERVE NOW</a>
+            <a class="btn btn-primary" onclick="openBooking('group')" style="cursor:pointer">RESERVE NOW</a>
           </div>
           <div class="ws-card">
             <div class="ws-card-badge">FULL TAKEOVER</div>
             <div class="ws-card-price">From $1,499</div>
             <h3>Full Gridout</h3>
             <p>All 3 arenas, entire venue exclusively yours. Corporate showdowns, team events, epic parties.</p>
-            <a class="btn btn-outline">INQUIRE</a>
+            <a class="btn btn-outline" onclick="openBooking('gridout')" style="cursor:pointer">INQUIRE</a>
           </div>
         </div>
       </div>
@@ -960,7 +1163,7 @@
       <div class="wss-inner">
         <div class="ws-h2">THE FLOOR IS <span class="accent">LIVE.</span></div>
         <p>Are you?</p>
-        <a class="btn btn-primary">BOOK YOUR LANE</a>
+        <a class="btn btn-primary" onclick="openBooking('open')" style="cursor:pointer">BOOK YOUR LANE</a>
       </div>
     </section>
 
@@ -969,6 +1172,7 @@
       <div class="ws-footer-info">Carlsbad, CA · Open Daily 10am–10pm</div>
       <div class="ws-footer-links"><a href="#">Sessions</a><a href="#">Compete</a><a href="#">Contact</a></div>
     </div>
+    <button class="adm-open-btn" onclick="openAdmin()">STAFF ADMIN</button>
   </div><!-- /ws-sport -->
 
   <!-- ═══ ARENA WEBSITE ═══ -->
@@ -978,7 +1182,7 @@
       <div class="wsn-links">
         <a href="#">The Grid</a><a href="#">Sessions</a><a href="#">Events</a><a href="#">Reserve</a>
       </div>
-      <a class="wsn-cta">ENTER THE ARENA</a>
+      <a class="wsn-cta" onclick="openBooking('group')" style="cursor:pointer">ENTER THE ARENA</a>
     </nav>
 
     <section class="wsh">
@@ -999,8 +1203,8 @@
         <h1 class="wsh-title">THE GRID<br>IS <span class="ht-green">LIVE.</span></h1>
         <p class="wsh-sub">The arena floor lights up. Tiles shift. The session begins. Tonight, you're playing on the grid.</p>
         <div class="wsh-btns">
-          <a class="btn btn-primary">RESERVE YOUR NIGHT</a>
-          <a class="btn btn-outline">VIEW SCHEDULE</a>
+          <a class="btn btn-primary" onclick="openBooking('group')" style="cursor:pointer">RESERVE YOUR NIGHT</a>
+          <a class="btn btn-outline" onclick="openBooking('open')" style="cursor:pointer">VIEW SCHEDULE</a>
         </div>
       </div>
     </section>
@@ -1055,21 +1259,21 @@
             <div class="ws-card-price" style="font-size:1.4rem;color:var(--gray);">Open Play</div>
             <h3>Open Session</h3>
             <p>Walk in and get on the grid. Two rounds, all modes, full scoreboard. No reservation needed — subject to availability.</p>
-            <a class="btn btn-outline">CHECK AVAILABILITY</a>
+            <a class="btn btn-outline" onclick="openBooking('open')" style="cursor:pointer">CHECK AVAILABILITY</a>
           </div>
           <div class="ws-card ws-card-featured">
             <div class="ws-card-badge badge-green">RESERVED</div>
             <div class="ws-card-price">From $499<span style="display:block;font-size:0.75rem;color:var(--gray);font-family:var(--f-body);margin-top:0.25rem;">Weekdays from $429</span></div>
             <h3>Group Night</h3>
             <p>Up to 8 players. Reserved time slot, dedicated game host, custom session. Birthdays, squads, dates.</p>
-            <a class="btn btn-primary">RESERVE NOW</a>
+            <a class="btn btn-primary" onclick="openBooking('group')" style="cursor:pointer">RESERVE NOW</a>
           </div>
           <div class="ws-card">
             <div class="ws-card-badge">FULL TAKEOVER</div>
             <div class="ws-card-price">From $1,499</div>
             <h3>Full Gridout</h3>
             <p>All 3 arenas. The entire venue, exclusively yours. Corporate events, private parties, team challenges.</p>
-            <a class="btn btn-outline">INQUIRE</a>
+            <a class="btn btn-outline" onclick="openBooking('gridout')" style="cursor:pointer">INQUIRE</a>
           </div>
         </div>
       </div>
@@ -1080,7 +1284,7 @@
       <div class="wss-inner">
         <div class="ws-h2">DOORS OPEN.<br><span class="accent">GRID LIT.</span></div>
         <p>The next session starts soon. Don't watch from the outside.</p>
-        <a class="btn btn-primary">ENTER THE ARENA</a>
+        <a class="btn btn-primary" onclick="openBooking('group')" style="cursor:pointer">ENTER THE ARENA</a>
       </div>
     </section>
 
@@ -1089,9 +1293,51 @@
       <div class="ws-footer-info">Carlsbad, CA · Open Daily 10am–10pm</div>
       <div class="ws-footer-links"><a href="#">Sessions</a><a href="#">Events</a><a href="#">Reserve</a></div>
     </div>
+    <button class="adm-open-btn" onclick="openAdmin()">STAFF ADMIN</button>
   </div><!-- /ws-arena -->
 
 </div><!-- /website-view -->
+
+<!-- ══ BOOKING MODAL ══ -->
+<div class="bk-overlay" id="bk-overlay" onclick="bkOverlayClick(event)">
+  <div class="bk-modal" id="bk-modal">
+    <div class="bk-header">
+      <div class="bk-logo" id="bk-modal-logo">GRID<span>STRIKE</span></div>
+      <button class="bk-close" onclick="closeBooking()">✕</button>
+    </div>
+    <div class="bk-progress" id="bk-progress"></div>
+    <div class="bk-step-label" id="bk-step-label"></div>
+    <div class="bk-body" id="bk-body"></div>
+    <div class="bk-footer">
+      <div class="bk-total">Total<strong id="bk-total-val">—</strong></div>
+      <div class="bk-btns">
+        <button class="bk-btn-back" id="bk-back" onclick="bkBack()">Back</button>
+        <button class="bk-btn-next" id="bk-next" onclick="bkNext()">Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ADMIN MODAL ══ -->
+<div class="adm-overlay" id="adm-overlay" onclick="admOverlayClick(event)">
+  <div class="adm-modal">
+    <div class="adm-header">
+      <div class="adm-title">STAFF CALENDAR</div>
+      <div class="adm-week-nav">
+        <button class="bk-cal-nav" onclick="admPrevWeek()">←</button>
+        <div class="adm-week-label" id="adm-week-label"></div>
+        <button class="bk-cal-nav" onclick="admNextWeek()">→</button>
+      </div>
+      <button class="bk-close" onclick="closeAdmin()">✕</button>
+    </div>
+    <div class="adm-cal-wrap"><div id="adm-cal-grid"></div></div>
+    <div class="adm-legend">
+      <div class="adm-leg"><div class="adm-leg-dot" style="background:rgba(255,255,255,0.35)"></div>Open Session</div>
+      <div class="adm-leg"><div class="adm-leg-dot" style="background:#00E564"></div>Group Night</div>
+      <div class="adm-leg"><div class="adm-leg-dot" style="background:#1A6EFF"></div>Full Gridout</div>
+    </div>
+  </div>
+</div>
 
 <script>
 const themes = {
@@ -1215,6 +1461,399 @@ function setTheme(t) {
 
 setTheme('tactical');
 setView('identity');
+
+/* ════════════════════════════════════
+   BOOKING SYSTEM
+════════════════════════════════════ */
+const SESSIONS = {
+  open:    { name:'Open Session',  price:0,    label:'Walk-in',      desc:'Two rounds, all modes. Subject to availability.' },
+  group:   { name:'Group Night',   price:499,  label:'From $499',    desc:'Reserved slot, game host, up to 8 players.' },
+  gridout: { name:'Full Gridout',  price:1499, label:'From $1,499',  desc:'All 3 arenas, full venue exclusive.' }
+};
+const TOPPINGS = ['Pepperoni','Sausage','Mushrooms','Bell Peppers','Jalapeños','Onions','Extra Cheese','Black Olives'];
+const PIZZA_PRICE = 18;
+const TOTAL_STEPS = 7;
+
+let bk = {};
+let calY, calM;
+
+function bkReset(type) {
+  bk = { step:1, sessionType:type||null, date:null, time:null,
+    name:'', email:'', phone:'', groupSize:2, occasion:'',
+    partyFor:'', attendees:'', wantsInvite:false, wantsPizza:false,
+    pizzaCount:1, toppings:[], isMinor:false, guardianName:'',
+    waiverAgreed:false, waiverSig:'', ref:'' };
+  const n = new Date(); calY = n.getFullYear(); calM = n.getMonth();
+}
+
+function openBooking(type) {
+  bkReset(type);
+  document.getElementById('bk-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  bkRender();
+}
+function closeBooking() {
+  document.getElementById('bk-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function bkOverlayClick(e) { if(e.target.id==='bk-overlay') closeBooking(); }
+
+function bkTotal() {
+  let t = bk.sessionType ? SESSIONS[bk.sessionType].price : 0;
+  if(bk.wantsPizza) t += bk.pizzaCount * PIZZA_PRICE;
+  return t;
+}
+
+function bkNext() {
+  if(!bkValidate()) return;
+  bkSaveFields();
+  if(bk.step===6) bkSaveBooking();
+  if(bk.step < TOTAL_STEPS) { bk.step++; bkRender(); }
+  else closeBooking();
+}
+function bkBack() { if(bk.step>1){ bk.step--; bkRender(); } }
+
+function bkValidate() {
+  if(bk.step===1 && !bk.sessionType) { alert('Please select a session type.'); return false; }
+  if(bk.step===2 && !bk.date) { alert('Please select a date.'); return false; }
+  if(bk.step===2 && !bk.time) { alert('Please select a time.'); return false; }
+  if(bk.step===3 && !document.getElementById('bk-name').value.trim()) { alert('Please enter your name.'); return false; }
+  if(bk.step===3 && !document.getElementById('bk-email').value.includes('@')) { alert('Please enter a valid email.'); return false; }
+  if(bk.step===5 && !bk.waiverAgreed) { alert('Please agree to the waiver.'); return false; }
+  if(bk.step===5 && !document.getElementById('bk-sig')?.value.trim()) { alert('Please type your full name to sign.'); return false; }
+  return true;
+}
+
+function bkSaveFields() {
+  const g = id => { const e=document.getElementById(id); return e?e.value:''; };
+  if(bk.step===3){ bk.name=g('bk-name'); bk.email=g('bk-email'); bk.phone=g('bk-phone'); bk.occasion=g('bk-occasion'); }
+  if(bk.step===4){ bk.partyFor=g('bk-party-for'); bk.attendees=g('bk-attendees'); }
+  if(bk.step===5){ bk.waiverSig=g('bk-sig'); bk.guardianName=g('bk-guardian'); }
+}
+
+function bkSaveBooking() {
+  bk.ref = 'GS-'+Math.random().toString(36).substring(2,5).toUpperCase()+'-'+Date.now().toString(36).toUpperCase().slice(-4);
+  try {
+    const all = JSON.parse(localStorage.getItem('gs_bookings')||'[]');
+    all.push({ ref:bk.ref, sessionType:bk.sessionType, date:bk.date, time:bk.time,
+      name:bk.name, email:bk.email, groupSize:bk.groupSize, occasion:bk.occasion,
+      partyFor:bk.partyFor, attendees:bk.attendees, wantsPizza:bk.wantsPizza,
+      pizzaCount:bk.pizzaCount, toppings:[...bk.toppings], total:bkTotal(),
+      createdAt:new Date().toISOString() });
+    localStorage.setItem('gs_bookings', JSON.stringify(all));
+  } catch(e){}
+}
+
+function bkRender() {
+  // Progress
+  const prog = document.getElementById('bk-progress');
+  prog.innerHTML = Array.from({length:TOTAL_STEPS},(_,i)=>{
+    const cls = i+1<bk.step?'done':i+1===bk.step?'active':'';
+    return `<div class="bk-prog-step ${cls}"></div>`;
+  }).join('');
+
+  // Step label
+  const labels=['Select Session','Date & Time','Your Details','Add-Ons','Waiver','Payment','Confirmation'];
+  document.getElementById('bk-step-label').textContent = `Step ${bk.step} of ${TOTAL_STEPS} — ${labels[bk.step-1]}`;
+
+  // Footer
+  const back=document.getElementById('bk-back'), next=document.getElementById('bk-next');
+  back.style.display = bk.step===1?'none':'';
+  next.textContent = bk.step===7?'Close':bk.step===6?'Complete Booking':'Continue';
+  next.onclick = bk.step===7?closeBooking:bkNext;
+
+  // Total
+  const tot = bkTotal();
+  document.getElementById('bk-total-val').textContent = bk.step>=3?(tot>0?'$'+tot.toLocaleString():'Walk-in'):'—';
+
+  // Body
+  const body = document.getElementById('bk-body');
+  body.scrollTop = 0;
+  const renderers = [null,s1,s2,s3,s4,s5,s6,s7];
+  body.innerHTML = renderers[bk.step]();
+  if(bk.step===4) initAddons();
+}
+
+/* ── Step 1 ── */
+function s1() {
+  return `<div class="bk-session-cards">${Object.entries(SESSIONS).map(([k,s])=>`
+    <div class="bk-session-card${bk.sessionType===k?' selected':''}" onclick="bkSelectSession('${k}',this)">
+      <div class="bk-sc-price">${s.label}</div>
+      <div class="bk-sc-name">${s.name}</div>
+      <div class="bk-sc-desc">${s.desc}</div>
+    </div>`).join('')}</div>`;
+}
+function bkSelectSession(k,el) {
+  bk.sessionType=k;
+  document.querySelectorAll('.bk-session-card').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+}
+
+/* ── Step 2 ── */
+function s2() { return bkCalHTML(); }
+function bkCalHTML() {
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const dows=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const first=new Date(calY,calM,1).getDay(), total=new Date(calY,calM+1,0).getDate();
+  const today=new Date(); today.setHours(0,0,0,0);
+  let cells='';
+  for(let i=0;i<first;i++) cells+='<div class="bk-cal-day empty"></div>';
+  for(let d=1;d<=total;d++){
+    const dt=new Date(calY,calM,d);
+    const ds=`${calY}-${String(calM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const past=dt<today;
+    cells+=`<div class="bk-cal-day ${past?'past':bk.date===ds?'selected':'available'}" ${!past?`onclick="bkPickDate('${ds}')"`:''}>${d}</div>`;
+  }
+  const times=['10:00 AM','12:00 PM','2:00 PM','4:00 PM','6:00 PM','7:30 PM','9:00 PM'];
+  const slots=times.map(t=>`<div class="bk-slot available${bk.time===t?' selected':''}" onclick="bkPickTime('${t}')">${t}</div>`).join('');
+  return `
+    <div class="bk-cal-header">
+      <button class="bk-cal-nav" onclick="calPrev()">←</button>
+      <div class="bk-cal-title">${months[calM]} ${calY}</div>
+      <button class="bk-cal-nav" onclick="calNext()">→</button>
+    </div>
+    <div class="bk-cal-grid">
+      ${dows.map(d=>`<div class="bk-cal-dow">${d}</div>`).join('')}${cells}
+    </div>
+    <div style="margin:1.25rem 0 0.6rem;font-family:var(--f-label);font-size:0.6rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--primary);opacity:0.75;">Select Time</div>
+    <div class="bk-time-slots">${slots}</div>`;
+}
+function calPrev(){ calM--; if(calM<0){calM=11;calY--;} document.getElementById('bk-body').innerHTML=bkCalHTML(); }
+function calNext(){ calM++; if(calM>11){calM=0;calY++;} document.getElementById('bk-body').innerHTML=bkCalHTML(); }
+function bkPickDate(d){ bk.date=d; document.getElementById('bk-body').innerHTML=bkCalHTML(); }
+function bkPickTime(t){ bk.time=t; document.getElementById('bk-body').innerHTML=bkCalHTML(); }
+
+/* ── Step 3 ── */
+function s3() {
+  const occasions=['Birthday Party','Date Night','Corporate Event','Friend Group','Bachelor/Bachelorette','Team Building','Other'];
+  return `<div class="bk-form">
+    <div class="bk-field-row">
+      <div class="bk-field"><div class="bk-label">Full Name</div><input class="bk-input" id="bk-name" value="${bk.name}" placeholder="Your name" /></div>
+      <div class="bk-field"><div class="bk-label">Phone</div><input class="bk-input" id="bk-phone" value="${bk.phone}" placeholder="(760) 000-0000" /></div>
+    </div>
+    <div class="bk-field"><div class="bk-label">Email</div><input class="bk-input" id="bk-email" type="email" value="${bk.email}" placeholder="you@email.com" /></div>
+    <div class="bk-field"><div class="bk-label">What's the occasion?</div>
+      <select class="bk-input" id="bk-occasion">
+        <option value="">Select one...</option>
+        ${occasions.map(o=>`<option${bk.occasion===o?' selected':''}>${o}</option>`).join('')}
+      </select>
+    </div>
+    <div class="bk-field"><div class="bk-label">Group Size</div>
+      <div class="bk-size-row">
+        <button class="bk-size-btn" onclick="bkSize(-1)">−</button>
+        <div class="bk-size-val" id="bk-size">${bk.groupSize}</div>
+        <button class="bk-size-btn" onclick="bkSize(1)">+</button>
+        <span style="font-size:0.76rem;color:var(--gray);font-family:var(--f-body);">players (max 8 per arena)</span>
+      </div>
+    </div>
+  </div>`;
+}
+function bkSize(d){ bk.groupSize=Math.max(1,Math.min(24,bk.groupSize+d)); const e=document.getElementById('bk-size'); if(e)e.textContent=bk.groupSize; }
+
+/* ── Step 4 ── */
+function inviteLabel() {
+  const t=document.body.getAttribute('data-theme');
+  return t==='tactical'?'MISSION BRIEF':t==='sport'?'SQUAD INVITE':'ARENA PASS';
+}
+function inviteCardHTML(name) {
+  const ds=bk.date?new Date(bk.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}):'Date TBD';
+  const forLine=name?'YOU\'RE INVITED — '+name.toUpperCase():'YOUR CREW IS INVITED';
+  return `<div class="bk-invite-card">
+    <div class="bk-ic-bg"></div>
+    <div class="bk-ic-eyebrow">${inviteLabel()} · GRIDSTRIKE CARLSBAD</div>
+    <div class="bk-ic-logo">GRID<span>STRIKE</span></div>
+    <div class="bk-ic-for">${forLine}</div>
+    <div class="bk-ic-details">${ds} · ${bk.time||'Time TBD'} · Carlsbad, CA</div>
+    <div class="bk-ic-tiles">
+      <div class="bk-ic-tile" style="background:#00E564;"></div>
+      <div class="bk-ic-tile" style="background:#E8204E;"></div>
+      <div class="bk-ic-tile" style="background:#1A6EFF;"></div>
+    </div>
+  </div>`;
+}
+function s4() {
+  return `
+  <div class="bk-addon${bk.wantsInvite?' active':''}" id="bk-inv">
+    <div class="bk-addon-toggle" onclick="bkToggleAddon('inv')">
+      <div class="bk-addon-check">${bk.wantsInvite?'✓':''}</div>
+      <div><div class="bk-addon-title">Send your crew an invite</div></div>
+      <div class="bk-addon-desc">Free — auto-generates branded invite</div>
+    </div>
+    <div class="bk-addon-body">
+      <div class="bk-field" style="margin-bottom:0.75rem;">
+        <div class="bk-label">This invite is for</div>
+        <input class="bk-input" id="bk-party-for" value="${bk.partyFor}" placeholder="e.g. Jake's 30th, Team Alpha..." oninput="liveInvite(this.value)" />
+      </div>
+      <div class="bk-field" style="margin-bottom:0.75rem;">
+        <div class="bk-label">Attendee emails <span style="opacity:0.5;font-weight:400;letter-spacing:0">(comma-separated — they'll get a waiver link too)</span></div>
+        <input class="bk-input" id="bk-attendees" value="${bk.attendees}" placeholder="friend@email.com, another@email.com" />
+      </div>
+      <div class="bk-label" style="margin-bottom:0.4rem;">Live Preview</div>
+      <div class="bk-invite-preview" id="bk-inv-preview">${inviteCardHTML(bk.partyFor)}</div>
+    </div>
+  </div>
+  <div class="bk-addon${bk.wantsPizza?' active':''}" id="bk-piz">
+    <div class="bk-addon-toggle" onclick="bkToggleAddon('piz')">
+      <div class="bk-addon-check">${bk.wantsPizza?'✓':''}</div>
+      <div><div class="bk-addon-title">🍕 Add pizza to your session</div></div>
+      <div class="bk-addon-desc">$${PIZZA_PRICE}/pie · customize toppings</div>
+    </div>
+    <div class="bk-addon-body">
+      <div class="bk-pizza-count">
+        <div class="bk-pizza-label">Pies</div>
+        <button class="bk-size-btn" onclick="bkPizza(-1)">−</button>
+        <div class="bk-size-val" id="bk-pie-n">${bk.pizzaCount}</div>
+        <button class="bk-size-btn" onclick="bkPizza(1)">+</button>
+      </div>
+      <div class="bk-label" style="margin-bottom:0.6rem;">Choose toppings</div>
+      <div class="bk-toppings">${TOPPINGS.map(t=>`<div class="bk-topping${bk.toppings.includes(t)?' selected':''}" onclick="bkTopping('${t}',this)"><div class="bk-topping-dot"></div>${t}</div>`).join('')}</div>
+      <div class="bk-pizza-total" id="bk-piz-tot">${pizzaTotHTML()}</div>
+    </div>
+  </div>`;
+}
+function initAddons() {
+  // onclick already wired inline
+}
+function bkToggleAddon(id) {
+  if(id==='inv'){ bk.wantsInvite=!bk.wantsInvite; }
+  else { bk.wantsPizza=!bk.wantsPizza; }
+  const el=document.getElementById('bk-'+id);
+  if(!el) return;
+  const isOn=id==='inv'?bk.wantsInvite:bk.wantsPizza;
+  el.classList.toggle('active',isOn);
+  el.querySelector('.bk-addon-check').textContent=isOn?'✓':'';
+  document.getElementById('bk-total-val').textContent=bkTotal()>0?'$'+bkTotal().toLocaleString():'Walk-in';
+}
+function liveInvite(v){ bk.partyFor=v; const p=document.getElementById('bk-inv-preview'); if(p)p.innerHTML=inviteCardHTML(v); }
+function pizzaTotHTML(){ return `${bk.pizzaCount} pie${bk.pizzaCount>1?'s':''} · ${bk.toppings.length?bk.toppings.join(', '):'Classic cheese'} · <strong style="color:var(--primary)">$${bk.pizzaCount*PIZZA_PRICE}</strong>`; }
+function bkPizza(d){ bk.pizzaCount=Math.max(1,Math.min(10,bk.pizzaCount+d)); const e=document.getElementById('bk-pie-n'); if(e)e.textContent=bk.pizzaCount; const t=document.getElementById('bk-piz-tot'); if(t)t.innerHTML=pizzaTotHTML(); document.getElementById('bk-total-val').textContent='$'+bkTotal().toLocaleString(); }
+function bkTopping(t,el){ const i=bk.toppings.indexOf(t); if(i>-1)bk.toppings.splice(i,1);else bk.toppings.push(t); el.classList.toggle('selected'); el.querySelector('.bk-topping-dot').style.background=bk.toppings.includes(t)?'var(--primary)':''; const tot=document.getElementById('bk-piz-tot'); if(tot)tot.innerHTML=pizzaTotHTML(); }
+
+/* ── Step 5 ── */
+const WAIVER=`GRIDSTRIKE PARTICIPATION WAIVER & RELEASE OF LIABILITY\n\nBy participating in any GRIDSTRIKE session, event, or activity, you (the participant) acknowledge and agree to the following:\n\n1. ASSUMPTION OF RISK: I understand that participation in GRIDSTRIKE involves physical activity including running, jumping, and rapid directional changes on an interactive LED tile floor. I voluntarily assume all risks of injury, damage, or loss that may arise.\n\n2. RELEASE OF LIABILITY: I hereby release, waive, discharge, and covenant not to sue GRIDSTRIKE, its owners, operators, employees, agents, and affiliates from any and all liability, claims, demands, or causes of action arising from my participation, including those caused by negligence.\n\n3. MEDICAL CONDITIONS: I represent that I am in good physical condition and have no known medical conditions that would prevent safe participation.\n\n4. RULES & CONDUCT: I agree to follow all GRIDSTRIKE staff instructions, safety rules, and facility policies. Violation may result in removal without refund.\n\n5. MEDIA RELEASE: I grant GRIDSTRIKE permission to use photographs or video taken during my session for marketing purposes unless I opt out in writing.\n\n6. MINORS: If signing on behalf of a minor under 18, I confirm I am their parent or legal guardian and agree to all terms on their behalf.\n\nThis waiver is binding and governed by the laws of the State of California.`;
+function s5() {
+  return `
+  <div class="bk-waiver-text">${WAIVER.replace(/\n/g,'<br>')}</div>
+  <div class="bk-checkbox-row" onclick="bkToggleWaiver()">
+    <div class="bk-checkbox${bk.waiverAgreed?' checked':''}" id="bk-wcheck">${bk.waiverAgreed?'✓':''}</div>
+    <div class="bk-checkbox-label"><strong>I have read and agree</strong> to the GRIDSTRIKE Participation Waiver and Release of Liability. I understand this is a legally binding document.</div>
+  </div>
+  <div class="bk-checkbox-row" onclick="bkToggleMinor()">
+    <div class="bk-checkbox${bk.isMinor?' checked':''}" id="bk-mcheck">${bk.isMinor?'✓':''}</div>
+    <div class="bk-checkbox-label">This booking includes a <strong>minor (under 18)</strong> — I am their parent or legal guardian</div>
+  </div>
+  ${bk.isMinor?`<div class="bk-minor-box">
+    <div class="bk-label">Parent / Guardian Full Name</div>
+    <input class="bk-input" id="bk-guardian" value="${bk.guardianName}" placeholder="Legal guardian name" style="margin-top:0.4rem;" />
+    <p class="bk-minor-note">✉ Attendees will receive a waiver link via email. Parents may sign on behalf of minors prior to their session.</p>
+  </div>`:''}
+  <div style="margin-top:1.1rem;">
+    <div class="bk-sig-label">Type your full legal name to sign</div>
+    <input class="bk-input" id="bk-sig" value="${bk.waiverSig}" placeholder="Your full name" />
+    <div style="font-size:0.68rem;color:var(--gray);margin-top:0.35rem;opacity:0.55;">Electronically signed: ${new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'})}</div>
+  </div>`;
+}
+function bkToggleWaiver(){ bk.waiverAgreed=!bk.waiverAgreed; const e=document.getElementById('bk-wcheck'); if(e){e.classList.toggle('checked',bk.waiverAgreed);e.textContent=bk.waiverAgreed?'✓':'';} }
+function bkToggleMinor(){ bk.isMinor=!bk.isMinor; document.getElementById('bk-body').innerHTML=s5(); }
+
+/* ── Step 6 ── */
+function s6() {
+  const s=SESSIONS[bk.sessionType], piz=bk.wantsPizza?bk.pizzaCount*PIZZA_PRICE:0, tot=bkTotal();
+  const ds=bk.date?new Date(bk.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'}):'TBD';
+  return `
+  <div class="bk-order-summary">
+    <div class="bk-order-row"><span>${s.name}</span><span>${s.price>0?'$'+s.price:'Walk-in'}</span></div>
+    <div class="bk-order-row"><span>Date & Time</span><span>${ds} · ${bk.time}</span></div>
+    <div class="bk-order-row"><span>Group</span><span>${bk.groupSize} players</span></div>
+    ${bk.wantsPizza?`<div class="bk-order-row"><span>Pizza (${bk.pizzaCount} pie${bk.pizzaCount>1?'s':''})</span><span>$${piz}</span></div>`:''}
+    ${bk.wantsInvite?`<div class="bk-order-row"><span>Crew Invites + Waivers</span><span>Included</span></div>`:''}
+    <div class="bk-order-row"><span><strong>Total Due Today</strong></span><span>${tot>0?'$'+tot.toLocaleString():'Free — Pay at door'}</span></div>
+  </div>
+  <div class="bk-form">
+    <div class="bk-field"><div class="bk-label">Card Number</div><input class="bk-input" id="bk-card-num" placeholder="4242 4242 4242 4242" maxlength="19" oninput="fmtCard(this)" /></div>
+    <div class="bk-field-row">
+      <div class="bk-field"><div class="bk-label">Expiry</div><input class="bk-input" id="bk-card-exp" placeholder="MM / YY" maxlength="7" oninput="fmtExp(this)" /></div>
+      <div class="bk-field"><div class="bk-label">CVV</div><input class="bk-input" id="bk-card-cvv" placeholder="•••" maxlength="4" /></div>
+    </div>
+  </div>
+  <div class="bk-card-note">🔒 Demo only — no payment is processed. Your info is never stored or transmitted externally.</div>`;
+}
+function fmtCard(el){ let v=el.value.replace(/\D/g,'').slice(0,16); el.value=v.replace(/(.{4})/g,'$1 ').trim(); }
+function fmtExp(el){ let v=el.value.replace(/\D/g,'').slice(0,4); if(v.length>=2)v=v.slice(0,2)+' / '+v.slice(2); el.value=v; }
+
+/* ── Step 7 ── */
+function s7() {
+  const s=SESSIONS[bk.sessionType];
+  const ds=bk.date?new Date(bk.date+'T12:00:00').toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'}):'';
+  const att=bk.wantsInvite&&bk.attendees?bk.attendees.split(',').map(e=>e.trim()).filter(Boolean):[];
+  return `
+  <div class="bk-confirm-header">
+    <div class="bk-confirm-check">✓</div>
+    <div class="bk-confirm-title">GRID LOCKED.</div>
+    <div class="bk-confirm-ref">Booking ref: <strong>${bk.ref}</strong></div>
+  </div>
+  <div class="bk-confirm-details">
+    <div class="bk-cd"><div class="bk-cd-label">Session</div><div class="bk-cd-val">${s.name}</div></div>
+    <div class="bk-cd"><div class="bk-cd-label">Date</div><div class="bk-cd-val">${ds}</div></div>
+    <div class="bk-cd"><div class="bk-cd-label">Time</div><div class="bk-cd-val">${bk.time}</div></div>
+    <div class="bk-cd"><div class="bk-cd-label">Players</div><div class="bk-cd-val">${bk.groupSize}</div></div>
+  </div>
+  ${bk.wantsInvite?`<div class="bk-invite-preview" style="margin-bottom:0.75rem;">${inviteCardHTML(bk.partyFor)}</div>`:''}
+  ${att.length?`<div class="bk-info-strip">✉ &nbsp;<span>Crew invites + waiver links sent to <strong>${att.length} attendee${att.length>1?'s':''}</strong>: ${att.join(', ')}. Parents can sign for minors before the session.</span></div>`:''}
+  ${bk.wantsPizza?`<div class="bk-info-strip" style="border-color:rgba(232,32,78,0.2);background:rgba(232,32,78,0.04);">🍕 &nbsp;<span><strong>${bk.pizzaCount} pizza${bk.pizzaCount>1?'s':''}</strong> with ${bk.toppings.length?bk.toppings.join(', '):'classic toppings'} will be ready at session start.</span></div>`:''}
+  <p style="text-align:center;font-size:0.76rem;color:var(--gray);margin-top:1.25rem;font-family:var(--f-body);">Confirmation sent to <strong style="color:var(--white)">${bk.email}</strong></p>`;
+}
+
+/* ════ ADMIN CALENDAR ════ */
+let admOffset=0;
+function openAdmin() {
+  document.getElementById('adm-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+  renderAdminCal();
+}
+function closeAdmin() {
+  document.getElementById('adm-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function admOverlayClick(e){ if(e.target.id==='adm-overlay')closeAdmin(); }
+function admPrevWeek(){ admOffset--; renderAdminCal(); }
+function admNextWeek(){ admOffset++; renderAdminCal(); }
+
+function renderAdminCal() {
+  let bookings=[];
+  try{ bookings=JSON.parse(localStorage.getItem('gs_bookings')||'[]'); }catch(e){}
+  const DOWS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const TIMES=['10:00 AM','12:00 PM','2:00 PM','4:00 PM','6:00 PM','7:30 PM','9:00 PM'];
+  const TLABELS=['10 AM','12 PM','2 PM','4 PM','6 PM','7:30 PM','9 PM'];
+  const today=new Date(); today.setHours(0,0,0,0);
+  const wkStart=new Date(today); wkStart.setDate(today.getDate()-today.getDay()+(admOffset*7));
+  const wkEnd=new Date(wkStart); wkEnd.setDate(wkStart.getDate()+6);
+  const fmt=d=>d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  document.getElementById('adm-week-label').textContent=`${fmt(wkStart)} — ${fmt(wkEnd)}`;
+
+  let html='<div class="adm-grid">';
+  // Header
+  html+='<div class="adm-head" style="background:var(--bg2);border-right:1px solid var(--border);"></div>';
+  for(let d=0;d<7;d++){
+    const day=new Date(wkStart); day.setDate(wkStart.getDate()+d);
+    const isToday=day.toDateString()===today.toDateString();
+    html+=`<div class="adm-head${isToday?' today':''}">${DOWS[d]}<br><span style="font-size:0.9rem;font-family:var(--f-display);${isToday?'color:var(--primary)':''}">${day.getDate()}</span></div>`;
+  }
+  // Rows
+  for(let ti=0;ti<TIMES.length;ti++){
+    html+=`<div class="adm-time-col">${TLABELS[ti]}</div>`;
+    for(let d=0;d<7;d++){
+      const day=new Date(wkStart); day.setDate(wkStart.getDate()+d);
+      const ds=`${day.getFullYear()}-${String(day.getMonth()+1).padStart(2,'0')}-${String(day.getDate()).padStart(2,'0')}`;
+      const slot=bookings.filter(b=>b.date===ds&&b.time===TIMES[ti]);
+      const cells=slot.map(b=>`<div class="adm-bk t-${b.sessionType==='open'?'open':b.sessionType==='group'?'group':'gridout'}" title="${b.name}">${(b.name||'Booking').split(' ')[0]}</div>`).join('');
+      html+=`<div class="adm-cell">${cells}</div>`;
+    }
+  }
+  html+='</div>';
+  if(bookings.length===0) html+='<div class="adm-empty">No bookings yet — use the booking flow to add some</div>';
+  document.getElementById('adm-cal-grid').innerHTML=html;
+}
 </script>
 </body>
 </html>
