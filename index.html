@@ -4,28 +4,33 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>GRIDSTRIKE — Brand Identity Concepts</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700;900&family=Raleway:wght@300;400;600;700;800&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700;900&family=Orbitron:wght@700;900&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
     /* ══════════════════════════════════════
-       THEME VARIABLES
+       SHARED TILE COLORS (game-accurate)
+       Green  #00E564 = Target tile
+       Red    #E8204E = Danger/strike tile
+       Blue   #1A6EFF = Safe zone tile
     ══════════════════════════════════════ */
 
     /* THEME 1: TACTICAL */
     [data-theme="tactical"] {
-      --bg:         #09090A;
-      --bg2:        #111210;
-      --bg3:        #181916;
-      --primary:    #E85C00;
-      --secondary:  #7A8C6A;
-      --accent:     #D4CDB8;
-      --white:      #EDE8E0;
-      --gray:       #7A7870;
-      --border:     rgba(232,92,0,0.15);
-      --border2:    rgba(122,140,106,0.2);
-      --glow:       rgba(232,92,0,0.3);
+      --bg:         #090A08;
+      --bg2:        #111310;
+      --bg3:        #181C15;
+      --primary:    #00E564;
+      --danger:     #E8204E;
+      --safe:       #1A6EFF;
+      --secondary:  #E8204E;
+      --accent:     #00E564;
+      --white:      #E8EDE0;
+      --gray:       #7A8470;
+      --border:     rgba(0,229,100,0.14);
+      --border2:    rgba(232,32,78,0.15);
+      --glow:       rgba(0,229,100,0.28);
       --f-display:  'Bebas Neue', sans-serif;
       --f-head:     'Barlow Condensed', sans-serif;
       --f-body:     'Barlow', sans-serif;
@@ -37,37 +42,41 @@
       --bg:         #080808;
       --bg2:        #111111;
       --bg3:        #191919;
-      --primary:    #C8FF00;
-      --secondary:  #FFFFFF;
-      --accent:     #C8FF00;
+      --primary:    #00E564;
+      --danger:     #E8204E;
+      --safe:       #1A6EFF;
+      --secondary:  #E8204E;
+      --accent:     #00E564;
       --white:      #FFFFFF;
       --gray:       #888888;
-      --border:     rgba(200,255,0,0.15);
-      --border2:    rgba(255,255,255,0.08);
-      --glow:       rgba(200,255,0,0.25);
+      --border:     rgba(0,229,100,0.14);
+      --border2:    rgba(232,32,78,0.12);
+      --glow:       rgba(0,229,100,0.22);
       --f-display:  'Inter', sans-serif;
       --f-head:     'Inter', sans-serif;
       --f-body:     'Inter', sans-serif;
       --f-label:    'Inter', sans-serif;
     }
 
-    /* THEME 3: DARK LUXURY */
-    [data-theme="luxury"] {
-      --bg:         #07070F;
-      --bg2:        #0E0E1C;
-      --bg3:        #141428;
-      --primary:    #C9A84C;
-      --secondary:  #8B7FB8;
-      --accent:     #C9A84C;
-      --white:      #F0EDE8;
-      --gray:       #8A86A0;
-      --border:     rgba(201,168,76,0.15);
-      --border2:    rgba(139,127,184,0.15);
-      --glow:       rgba(201,168,76,0.25);
-      --f-display:  'Playfair Display', serif;
-      --f-head:     'Raleway', sans-serif;
-      --f-body:     'Inter', sans-serif;
-      --f-label:    'Raleway', sans-serif;
+    /* THEME 3: ARENA */
+    [data-theme="arena"] {
+      --bg:         #05080E;
+      --bg2:        #080D16;
+      --bg3:        #0C1220;
+      --primary:    #00E564;
+      --danger:     #E8204E;
+      --safe:       #1A6EFF;
+      --secondary:  #E8204E;
+      --accent:     #00E564;
+      --white:      #E4EDF8;
+      --gray:       #6B7A8D;
+      --border:     rgba(0,229,100,0.13);
+      --border2:    rgba(26,110,255,0.18);
+      --glow:       rgba(0,229,100,0.3);
+      --f-display:  'Orbitron', sans-serif;
+      --f-head:     'Barlow Condensed', sans-serif;
+      --f-body:     'Barlow', sans-serif;
+      --f-label:    'Barlow Condensed', sans-serif;
     }
 
     /* ══════════════════════════════════════
@@ -85,7 +94,7 @@
     .theme-bar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
       display: flex; align-items: stretch;
-      background: rgba(5,5,8,0.97);
+      background: rgba(4,5,8,0.97);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid rgba(255,255,255,0.06);
       height: 56px;
@@ -102,7 +111,7 @@
     }
     [data-theme="tactical"] .theme-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: 0.2em; }
     [data-theme="sport"]    .theme-logo { font-family: 'Inter', sans-serif; font-weight: 900; letter-spacing: 0.05em; }
-    [data-theme="luxury"]   .theme-logo { font-family: 'Playfair Display', serif; font-weight: 700; letter-spacing: 0.1em; }
+    [data-theme="arena"]    .theme-logo { font-family: 'Orbitron', sans-serif; font-size: 0.95rem; letter-spacing: 0.12em; }
 
     .theme-tabs {
       display: flex; align-items: stretch; flex: 1;
@@ -121,13 +130,11 @@
     .theme-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
     .theme-tab .tab-dot {
       width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+      background: #00E564;
     }
-    #tab-tactical .tab-dot { background: #E85C00; }
-    #tab-sport    .tab-dot { background: #C8FF00; }
-    #tab-luxury   .tab-dot { background: #C9A84C; }
-    #tab-tactical.active { color: #E85C00; border-bottom-color: #E85C00; }
-    #tab-sport.active    { color: #C8FF00; border-bottom-color: #C8FF00; }
-    #tab-luxury.active   { color: #C9A84C; border-bottom-color: #C9A84C; }
+    #tab-tactical.active { color: #00E564; border-bottom-color: #00E564; }
+    #tab-sport.active    { color: #00E564; border-bottom-color: #00E564; }
+    #tab-arena.active    { color: #00E564; border-bottom-color: #00E564; }
 
     .nav-links {
       display: flex; align-items: center;
@@ -156,40 +163,48 @@
       pointer-events: none;
     }
 
-    /* Tactical: grid coordinate lines */
+    /* Tactical: tactical grid with green tint */
     [data-theme="tactical"] .hero-bg {
       background:
-        linear-gradient(rgba(232,92,0,0.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(232,92,0,0.04) 1px, transparent 1px);
+        linear-gradient(rgba(0,229,100,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,229,100,0.035) 1px, transparent 1px);
       background-size: 80px 80px;
     }
     [data-theme="tactical"] .hero-bg::after {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 50% 60%, rgba(232,92,0,0.08) 0%, transparent 65%);
+      background: radial-gradient(ellipse at 50% 60%, rgba(0,229,100,0.07) 0%, transparent 65%);
     }
 
     /* Sport: diagonal slash texture */
     [data-theme="sport"] .hero-bg {
       background: repeating-linear-gradient(
         -45deg, transparent, transparent 40px,
-        rgba(200,255,0,0.015) 40px, rgba(200,255,0,0.015) 41px
+        rgba(0,229,100,0.012) 40px, rgba(0,229,100,0.012) 41px
       );
     }
     [data-theme="sport"] .hero-bg::after {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 30% 50%, rgba(200,255,0,0.06) 0%, transparent 60%);
+      background: radial-gradient(ellipse at 30% 50%, rgba(0,229,100,0.055) 0%, transparent 60%);
     }
 
-    /* Luxury: subtle radial */
-    [data-theme="luxury"] .hero-bg {
-      background: radial-gradient(ellipse at 50% 40%, rgba(139,127,184,0.12) 0%, transparent 60%);
+    /* Arena: dot matrix + deep glow */
+    [data-theme="arena"] .hero-bg {
+      background:
+        radial-gradient(circle, rgba(0,229,100,0.09) 1px, transparent 1px);
+      background-size: 48px 48px;
+      background-position: 24px 24px;
     }
-    [data-theme="luxury"] .hero-bg::after {
+    [data-theme="arena"] .hero-bg::before {
       content: '';
-      position: absolute; bottom: 0; left: 0; right: 0; height: 300px;
-      background: linear-gradient(to top, rgba(201,168,76,0.06), transparent);
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(26,110,255,0.07) 0%, transparent 60%);
+    }
+    [data-theme="arena"] .hero-bg::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0; height: 280px;
+      background: linear-gradient(to top, rgba(0,229,100,0.05), transparent);
     }
 
     .hero-eyebrow {
@@ -200,7 +215,6 @@
       opacity: 0.8;
       transition: color 0.4s;
     }
-    [data-theme="luxury"] .hero-eyebrow { font-weight: 400; letter-spacing: 0.35em; opacity: 0.9; }
 
     .hero-title {
       text-align: center; line-height: 0.95;
@@ -225,25 +239,25 @@
       letter-spacing: -0.03em;
       color: var(--white);
     }
-    [data-theme="sport"] .hero-title .t-strike {
-      color: var(--primary);
-      -webkit-text-stroke: 0px;
-    }
+    [data-theme="sport"] .hero-title .t-strike { color: var(--primary); }
     [data-theme="sport"] .hero-title .t-grid {
       display: block;
       -webkit-text-stroke: 2px var(--white);
       color: transparent;
     }
 
-    /* LUXURY title */
-    [data-theme="luxury"] .hero-title {
-      font-family: 'Playfair Display', serif;
+    /* ARENA title */
+    [data-theme="arena"] .hero-title {
+      font-family: 'Orbitron', sans-serif;
       font-weight: 900;
-      font-size: clamp(3rem, 10vw, 8rem);
-      letter-spacing: 0.02em;
+      font-size: clamp(2.8rem, 9vw, 7.5rem);
+      letter-spacing: 0.08em;
       color: var(--white);
     }
-    [data-theme="luxury"] .hero-title .t-strike { color: var(--primary); font-style: italic; }
+    [data-theme="arena"] .hero-title .t-strike {
+      color: var(--primary);
+      text-shadow: 0 0 40px rgba(0,229,100,0.5);
+    }
 
     .hero-tagline {
       font-family: var(--f-label);
@@ -252,7 +266,11 @@
       color: var(--primary); margin-bottom: 1.5rem;
       font-weight: 700; transition: color 0.4s;
     }
-    [data-theme="luxury"] .hero-tagline { letter-spacing: 0.5em; font-weight: 400; font-style: normal; }
+    [data-theme="arena"] .hero-tagline {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(0.7rem, 1.5vw, 1rem);
+      letter-spacing: 0.4em;
+    }
 
     .hero-sub {
       max-width: 520px; text-align: center;
@@ -260,7 +278,6 @@
       font-family: var(--f-body); margin-bottom: 2.5rem;
       transition: color 0.4s;
     }
-    [data-theme="luxury"] .hero-sub { font-weight: 300; font-size: 1.05rem; }
 
     .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
 
@@ -273,7 +290,7 @@
     }
     [data-theme="tactical"] .btn { clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%); }
     [data-theme="sport"]    .btn { border-radius: 2px; }
-    [data-theme="luxury"]   .btn { border-radius: 0; letter-spacing: 0.2em; font-size: 0.75rem; font-family: 'Raleway', sans-serif; }
+    [data-theme="arena"]    .btn { border-radius: 2px; font-family: 'Orbitron', sans-serif; font-size: 0.72rem; letter-spacing: 0.2em; }
 
     .btn-primary {
       background: var(--primary); color: var(--bg);
@@ -281,7 +298,7 @@
     }
     .btn-primary:hover { filter: brightness(1.1); box-shadow: 0 0 40px var(--glow); }
     .btn-outline { border-color: var(--primary); color: var(--primary); background: transparent; }
-    .btn-outline:hover { background: rgba(255,255,255,0.05); }
+    .btn-outline:hover { background: rgba(0,229,100,0.06); }
 
     .scroll-hint {
       position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
@@ -301,7 +318,6 @@
       color: var(--primary); margin-bottom: 0.75rem; opacity: 0.8;
       transition: color 0.4s;
     }
-    [data-theme="luxury"] .section-label { font-weight: 400; letter-spacing: 0.5em; }
     h2 {
       font-family: var(--f-display); line-height: 1.05;
       font-size: clamp(1.8rem, 4vw, 2.8rem);
@@ -310,14 +326,13 @@
     }
     [data-theme="tactical"] h2 { font-size: clamp(2.2rem, 5vw, 3.5rem); letter-spacing: 0.04em; }
     [data-theme="sport"]    h2 { font-weight: 900; letter-spacing: -0.02em; }
-    [data-theme="luxury"]   h2 { font-weight: 700; letter-spacing: 0.01em; }
+    [data-theme="arena"]    h2 { font-size: clamp(1.4rem, 3.5vw, 2.2rem); letter-spacing: 0.08em; }
     h2 .accent { color: var(--primary); transition: color 0.4s; }
     .lead {
       font-size: 1rem; line-height: 1.75; color: var(--gray);
       max-width: 620px; margin-bottom: 3rem;
       font-family: var(--f-body); transition: color 0.4s;
     }
-    [data-theme="luxury"] .lead { font-weight: 300; font-size: 1.05rem; }
 
     .divider {
       max-width: 1160px; margin: 0 auto;
@@ -343,23 +358,20 @@
     }
     [data-theme="tactical"] .concept-card::before {
       content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-      background: var(--primary); opacity: 0;
-      transition: opacity 0.3s;
+      background: var(--primary); opacity: 0; transition: opacity 0.3s;
     }
     [data-theme="tactical"] .concept-card:hover::before { opacity: 1; }
     [data-theme="sport"] .concept-card {
-      border: 2px solid transparent;
-      border-radius: 0;
+      border: 2px solid transparent; border-radius: 0;
     }
     [data-theme="sport"] .concept-card:hover { border-color: var(--primary); }
-    [data-theme="luxury"] .concept-card {
-      border: 1px solid var(--border);
+    [data-theme="arena"] .concept-card {
       background: linear-gradient(135deg, var(--bg2), var(--bg3));
+      border-color: var(--border2);
     }
-    [data-theme="luxury"] .concept-card::after {
-      content: ''; position: absolute; bottom: 0; right: 0;
-      width: 40px; height: 40px;
-      border-right: 1px solid var(--primary); border-bottom: 1px solid var(--primary);
+    [data-theme="arena"] .concept-card::before {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--safe), transparent);
       opacity: 0.3;
     }
     .concept-card:hover { transform: translateY(-4px); }
@@ -367,10 +379,9 @@
     .concept-card h3 {
       font-family: var(--f-head); font-size: 1rem;
       font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      color: var(--white); margin-bottom: 0.75rem;
-      transition: all 0.4s;
+      color: var(--white); margin-bottom: 0.75rem; transition: all 0.4s;
     }
-    [data-theme="luxury"] .concept-card h3 { font-family: 'Raleway', sans-serif; font-weight: 600; }
+    [data-theme="arena"] .concept-card h3 { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; }
     .concept-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.6; transition: color 0.4s; }
 
     /* ── COLOR PALETTE ── */
@@ -380,10 +391,12 @@
     }
     .color-swatch { border-radius: 4px; overflow: hidden; }
     [data-theme="tactical"] .color-swatch { border-radius: 0; clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%); }
-    [data-theme="luxury"]   .color-swatch { border-radius: 0; }
+    [data-theme="arena"]    .color-swatch { border-radius: 0; }
+    [data-theme="sport"]    .color-swatch { border-radius: 2px; }
     .swatch-block { height: 110px; }
     .swatch-info { padding: 0.9rem; background: var(--bg2); }
     .swatch-name { font-family: var(--f-label); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--white); margin-bottom: 0.2rem; transition: all 0.4s; }
+    [data-theme="arena"] .swatch-name { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 0.08em; }
     .swatch-hex { font-family: monospace; font-size: 0.7rem; color: var(--gray); }
     .swatch-use { font-size: 0.65rem; color: var(--gray); opacity: 0.65; margin-top: 0.15rem; }
 
@@ -396,17 +409,15 @@
     .t-display { font-family: var(--f-display); line-height: 0.95; color: var(--white); transition: all 0.4s; }
     [data-theme="tactical"] .t-display { font-size: clamp(3rem, 8vw, 6rem); letter-spacing: 0.08em; }
     [data-theme="sport"]    .t-display { font-size: clamp(2.5rem, 7vw, 5.5rem); font-weight: 900; letter-spacing: -0.03em; }
-    [data-theme="luxury"]   .t-display { font-size: clamp(2.5rem, 7vw, 5rem); font-weight: 900; }
+    [data-theme="arena"]    .t-display { font-size: clamp(1.8rem, 5vw, 3.5rem); letter-spacing: 0.1em; }
 
     .t-headline { font-family: var(--f-head); font-weight: 700; font-size: clamp(1.4rem, 3vw, 2.2rem); color: var(--white); transition: all 0.4s; }
     [data-theme="sport"] .t-headline { font-weight: 800; letter-spacing: -0.01em; }
-    [data-theme="luxury"] .t-headline { font-family: 'Raleway', sans-serif; font-weight: 600; letter-spacing: 0.05em; }
+    [data-theme="arena"] .t-headline { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 0.05em; }
 
     .t-subhead { font-family: var(--f-label); font-weight: 700; font-size: 1rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--primary); transition: all 0.4s; }
-    [data-theme="luxury"] .t-subhead { font-weight: 400; letter-spacing: 0.4em; }
 
     .t-body-text { font-family: var(--f-body); font-size: 1rem; color: var(--gray); line-height: 1.7; max-width: 520px; transition: all 0.4s; }
-    [data-theme="luxury"] .t-body-text { font-weight: 300; }
 
     /* ── GAME MODES ── */
     .games-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
@@ -422,15 +433,19 @@
     [data-theme="sport"] .game-card {
       border: 2px solid transparent; border-radius: 0;
     }
-    [data-theme="sport"] .game-card:hover { border-color: var(--primary); background: rgba(200,255,0,0.03); }
-    [data-theme="luxury"] .game-card { border-color: var(--border2); }
+    [data-theme="sport"] .game-card:hover { border-color: var(--primary); background: rgba(0,229,100,0.03); }
+    [data-theme="arena"] .game-card {
+      background: var(--bg3);
+      border-color: var(--border2);
+    }
+    [data-theme="arena"] .game-card:hover { border-color: var(--primary); }
     .game-card:hover { transform: translateY(-4px); }
     .game-color-bar { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
     [data-theme="tactical"] .game-color-bar { display: none; }
     .game-icon { font-size: 1.8rem; margin: 0.75rem 0 0.5rem; }
     .game-card h3 { font-family: var(--f-display); font-size: 1.1rem; color: var(--white); margin-bottom: 0.4rem; letter-spacing: 0.05em; transition: all 0.4s; }
     [data-theme="sport"] .game-card h3 { font-weight: 900; letter-spacing: -0.01em; font-size: 1.2rem; }
-    [data-theme="luxury"] .game-card h3 { font-family: 'Raleway', sans-serif; font-weight: 700; font-size: 1rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    [data-theme="arena"] .game-card h3 { font-size: 0.9rem; letter-spacing: 0.1em; }
     .game-tag { font-family: var(--f-label); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--primary); display: block; margin-bottom: 0.75rem; transition: color 0.4s; }
     .game-card p { font-size: 0.84rem; color: var(--gray); line-height: 1.6; transition: color 0.4s; }
 
@@ -438,11 +453,12 @@
     .voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
     .voice-card { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; transition: all 0.4s; }
     [data-theme="tactical"] .voice-card { border-left: 3px solid var(--primary); border-top: none; border-right: none; border-bottom: none; background: var(--bg3); }
-    [data-theme="luxury"]   .voice-card { border-color: var(--border2); }
+    [data-theme="arena"]    .voice-card { border-color: var(--border2); background: var(--bg3); }
     .voice-card h3 { font-family: var(--f-label); font-weight: 700; font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--primary); margin-bottom: 1.25rem; transition: color 0.4s; }
+    [data-theme="arena"] .voice-card h3 { font-family: 'Orbitron', sans-serif; font-size: 0.72rem; }
     .voice-item { display: flex; gap: 0.75rem; margin-bottom: 0.75rem; align-items: flex-start; }
     .voice-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--primary); margin-top: 0.5rem; flex-shrink: 0; transition: background 0.4s; }
-    .voice-dot.neg { background: #FF3B3B; }
+    .voice-dot.neg { background: var(--danger); }
     .voice-item p { font-size: 0.88rem; color: var(--gray); line-height: 1.5; transition: color 0.4s; }
     .voice-item strong { color: var(--white); }
 
@@ -452,10 +468,9 @@
       border-left: 3px solid var(--primary); transition: all 0.4s;
     }
     [data-theme="sport"] .copy-ex { border-left-width: 4px; }
-    [data-theme="luxury"] .copy-ex { border-left-color: var(--primary); background: var(--bg3); }
+    [data-theme="arena"] .copy-ex { background: var(--bg3); border-left-color: var(--primary); }
     .copy-ex-label { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--primary); font-family: var(--f-label); font-weight: 700; margin-bottom: 0.6rem; opacity: 0.7; transition: color 0.4s; }
     .copy-ex p { font-size: 0.95rem; color: var(--white); line-height: 1.6; font-family: var(--f-head); font-weight: 500; transition: all 0.4s; }
-    [data-theme="luxury"] .copy-ex p { font-family: 'Raleway', sans-serif; font-weight: 400; letter-spacing: 0.02em; }
 
     /* ── TAGLINES ── */
     .tagline-list { display: flex; flex-direction: column; gap: 1rem; }
@@ -466,14 +481,15 @@
       cursor: default;
     }
     [data-theme="tactical"] .tagline-row { clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%); border: none; background: var(--bg3); }
+    [data-theme="arena"] .tagline-row { background: var(--bg3); border-color: var(--border2); }
     .tagline-row:hover { border-color: var(--primary); }
-    .tagline-row.primary { border-color: var(--primary); background: rgba(255,255,255,0.03); }
+    .tagline-row.primary { border-color: var(--primary); background: rgba(0,229,100,0.04); }
     .tagline-badge { font-family: var(--f-label); font-weight: 700; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.2rem 0.6rem; flex-shrink: 0; }
     .badge-primary { background: var(--primary); color: var(--bg); }
     .badge-alt { background: rgba(255,255,255,0.07); color: var(--gray); }
     .tagline-text { font-family: var(--f-display); font-size: clamp(0.9rem, 2vw, 1.3rem); color: var(--white); letter-spacing: 0.06em; transition: all 0.4s; }
     [data-theme="sport"] .tagline-text { font-weight: 900; letter-spacing: -0.01em; font-size: clamp(1rem, 2vw, 1.5rem); }
-    [data-theme="luxury"] .tagline-text { letter-spacing: 0.12em; font-size: clamp(0.85rem, 1.8vw, 1.1rem); }
+    [data-theme="arena"] .tagline-text { font-size: clamp(0.8rem, 1.5vw, 1rem); letter-spacing: 0.12em; }
     .tagline-row.primary .tagline-text { color: var(--primary); }
     .tagline-note { font-size: 0.75rem; color: var(--gray); margin-left: auto; font-family: 'Inter', sans-serif; flex-shrink: 0; }
 
@@ -485,20 +501,23 @@
       transition: all 0.4s;
     }
     [data-theme="tactical"] .exp-stat { clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%); border: none; }
-    [data-theme="luxury"] .exp-stat { border-color: var(--border2); }
+    [data-theme="arena"] .exp-stat { border-color: var(--border2); background: var(--bg3); }
     .exp-number { font-family: var(--f-display); font-size: 3rem; color: var(--primary); line-height: 1; transition: all 0.4s; }
     [data-theme="sport"] .exp-number { font-weight: 900; font-size: 3.5rem; }
+    [data-theme="arena"] .exp-number { font-size: 2.5rem; text-shadow: 0 0 20px rgba(0,229,100,0.4); }
     .exp-unit { font-size: 1.5rem; }
     .exp-label { font-family: var(--f-label); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gray); margin-top: 0.75rem; transition: all 0.4s; }
 
     /* ── TILE LANGUAGE ── */
     .tile-legend { display: flex; gap: 1.25rem; flex-wrap: wrap; }
     .tile-item { display: flex; align-items: center; gap: 1rem; background: var(--bg2); border: 1px solid var(--border); padding: 1.25rem 1.75rem; flex: 1; min-width: 200px; transition: all 0.4s; }
-    .tile-dot { width: 38px; height: 38px; flex-shrink: 0; }
-    [data-theme="tactical"] .tile-dot { clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%); }
-    [data-theme="luxury"]   .tile-dot { border-radius: 0; }
+    [data-theme="arena"] .tile-item { background: var(--bg3); border-color: var(--border2); }
+    .tile-dot { width: 38px; height: 38px; flex-shrink: 0; border-radius: 4px; }
+    [data-theme="tactical"] .tile-dot { clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%); border-radius: 0; }
+    [data-theme="arena"]    .tile-dot { border-radius: 2px; }
     [data-theme="sport"]    .tile-dot { border-radius: 2px; }
     .tile-item h4 { font-family: var(--f-head); font-weight: 700; font-size: 0.88rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--white); margin-bottom: 0.2rem; transition: all 0.4s; }
+    [data-theme="arena"] .tile-item h4 { font-family: 'Orbitron', sans-serif; font-size: 0.72rem; }
     .tile-item p { font-size: 0.78rem; color: var(--gray); transition: color 0.4s; }
 
     /* ── LOGO SECTION ── */
@@ -510,41 +529,43 @@
       transition: all 0.4s;
     }
     .logo-card.on-dark  { background: var(--bg); }
-    .logo-card.on-light { background: #EBEBEB; }
+    .logo-card.on-light { background: #E8EDE0; }
     .logo-card.on-brand { background: var(--primary); }
 
     .logo-lockup { display: flex; align-items: center; gap: 0.8rem; }
     .logo-wordmark { line-height: 1; letter-spacing: 0.1em; }
     [data-theme="tactical"] .logo-wordmark { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.12em; }
     [data-theme="sport"]    .logo-wordmark { font-family: 'Inter', sans-serif; font-weight: 900; font-size: 1.5rem; letter-spacing: -0.01em; }
-    [data-theme="luxury"]   .logo-wordmark { font-family: 'Playfair Display', serif; font-weight: 900; font-size: 1.4rem; }
+    [data-theme="arena"]    .logo-wordmark { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1.1rem; letter-spacing: 0.08em; }
 
     .on-dark  .wm-grid { color: var(--white); }
     .on-dark  .wm-strike { color: var(--primary); }
     .on-light .wm-grid { color: #111; }
-    .on-light .wm-strike { color: var(--primary); filter: brightness(0.7); }
+    .on-light .wm-strike { color: #008C3E; }
     .on-brand .wm-grid { color: var(--bg); }
     .on-brand .wm-strike { color: var(--bg); opacity: 0.55; }
 
     .logo-caption { font-family: 'Inter', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
     .on-dark  .logo-caption { color: var(--gray); }
-    .on-light .logo-caption { color: #666; }
+    .on-light .logo-caption { color: #555; }
     .on-brand .logo-caption { color: rgba(0,0,0,0.45); }
 
-    /* Icon mark */
+    /* Icon mark — 3×3 tile grid */
     .icon-mark { width: 44px; height: 44px; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3px; padding: 3px; }
     .ic { border-radius: 2px; }
-    [data-theme="sport"] .ic { border-radius: 1px; }
-    [data-theme="luxury"] .ic { border-radius: 0; }
+    [data-theme="tactical"] .ic { clip-path: polygon(1px 0%,100% 0%,calc(100% - 1px) 100%,0% 100%); border-radius: 0; }
     .ic-on  { background: var(--primary); }
-    .ic-off { background: var(--white); opacity: 0.15; }
-    .ic-lit { background: var(--secondary); animation: icBlink 1.8s infinite; }
-    .on-light .ic-on  { background: var(--primary); filter: brightness(0.75); }
-    .on-light .ic-off { background: #222; opacity: 0.12; }
-    .on-light .ic-lit { background: #222; opacity: 0.6; }
-    .on-brand .ic-on  { background: var(--bg); }
-    .on-brand .ic-off { background: var(--bg); opacity: 0.3; }
-    .on-brand .ic-lit { background: var(--bg); opacity: 0.7; }
+    .ic-off { background: var(--white); opacity: 0.12; }
+    .ic-danger { background: var(--danger); animation: icBlink 1.8s infinite; }
+    .ic-safe { background: var(--safe); }
+    .on-light .ic-on  { background: #008C3E; }
+    .on-light .ic-off { background: #222; opacity: 0.1; }
+    .on-light .ic-danger { background: var(--danger); }
+    .on-light .ic-safe { background: var(--safe); }
+    .on-brand .ic-on  { background: rgba(0,0,0,0.7); }
+    .on-brand .ic-off { background: rgba(0,0,0,0.25); }
+    .on-brand .ic-danger { background: rgba(0,0,0,0.5); }
+    .on-brand .ic-safe { background: rgba(0,0,0,0.4); }
     @keyframes icBlink { 0%,100%{opacity:1} 50%{opacity:0.35} }
 
     /* ── FOOTER ── */
@@ -555,9 +576,10 @@
     }
     .footer-logo { font-family: var(--f-display); font-size: 1.8rem; color: var(--white); margin-bottom: 0.5rem; letter-spacing: 0.1em; transition: all 0.4s; }
     [data-theme="sport"] .footer-logo { font-weight: 900; font-size: 2rem; letter-spacing: -0.02em; }
-    [data-theme="luxury"] .footer-logo { font-size: 1.6rem; }
+    [data-theme="arena"] .footer-logo { font-size: 1.4rem; letter-spacing: 0.12em; }
     .footer-logo .fl-strike { color: var(--primary); transition: color 0.4s; }
     .footer-tag { font-family: var(--f-label); font-weight: 700; font-size: 0.75rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--primary); margin-bottom: 1rem; transition: all 0.4s; }
+    [data-theme="arena"] .footer-tag { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; letter-spacing: 0.4em; }
     footer p { font-size: 0.75rem; color: var(--gray); }
 
     /* ── RESPONSIVE ── */
@@ -573,8 +595,7 @@
     }
 
     /* Theme transition */
-    body, body * { transition-property: background, background-color, color, border-color, box-shadow, clip-path; transition-duration: 0.35s; transition-timing-function: ease; }
-    /* Exception - don't transition font-family mid-way */
+    body * { transition-property: background, background-color, color, border-color, box-shadow; transition-duration: 0.35s; transition-timing-function: ease; }
   </style>
 </head>
 <body data-theme="tactical">
@@ -589,8 +610,8 @@
     <button class="theme-tab" id="tab-sport" onclick="setTheme('sport')">
       <span class="tab-dot"></span>02 — Sport
     </button>
-    <button class="theme-tab" id="tab-luxury" onclick="setTheme('luxury')">
-      <span class="tab-dot"></span>03 — Luxury
+    <button class="theme-tab" id="tab-arena" onclick="setTheme('arena')">
+      <span class="tab-dot"></span>03 — Arena
     </button>
   </div>
   <nav class="nav-links">
@@ -606,19 +627,14 @@
 <!-- ══ HERO ══ -->
 <section id="hero">
   <div class="hero-bg"></div>
-
   <div class="hero-eyebrow" id="hero-eyebrow">Brand Identity Concept — 01 Tactical</div>
-
   <div class="hero-title" id="hero-title">
     <span class="t-grid">GRID</span><span class="t-strike">STRIKE</span>
   </div>
-
   <div class="hero-tagline" id="hero-tagline">LIGHT. STRIKE. CLEAR.</div>
-
   <p class="hero-sub" id="hero-sub">
     An immersive LED tile arena where physical movement meets real-time tech. Fast. Precise. Relentless.
   </p>
-
   <div class="hero-cta">
     <a href="#concept" class="btn btn-primary">Explore Brand</a>
     <a href="#taglines" class="btn btn-outline">See Taglines</a>
@@ -632,12 +648,12 @@
 <section class="section" id="concept">
   <div class="section-label">Brand Foundation</div>
   <h2>What is <span class="accent">Gridstrike?</span></h2>
-  <p class="lead">An interactive LED tile arena where physical movement meets real-time technology. Players compete on a live grid of hundreds of pressure-sensitive, color-reactive floor tiles — no gear, no experience, just show up and strike.</p>
+  <p class="lead">An interactive LED tile arena where physical movement meets real-time technology. Players compete on a live grid of hundreds of color-reactive floor tiles — green to strike, red to avoid, blue to regroup. No gear. No experience. Just show up and move.</p>
   <div class="concept-grid">
     <div class="concept-card">
       <div class="concept-icon">⚡</div>
       <h3>The Experience</h3>
-      <p>Step onto the Grid. Every tile beneath you is alive — responding in real time to where you stand and how fast you move. Danger is red. Score is lit. Every round the rules change and the grid escalates.</p>
+      <p>Step onto the Grid. Every tile beneath you is alive — responding in real time to where you stand and how fast you move. Green lights your target. Red means danger. Blue means breathe. Every round the rules change and the grid escalates.</p>
     </div>
     <div class="concept-card">
       <div class="concept-icon">👥</div>
@@ -645,9 +661,9 @@
       <p>Ages 4 to 94. Solo warriors, birthday squads, competitive crews, corporate teams. No skill required. The floor is the equalizer — everyone starts from zero every round.</p>
     </div>
     <div class="concept-card">
-      <div class="concept-icon">🎯</div>
+      <div class="concept-icon">🟢</div>
       <h3>The Strike Mechanic</h3>
-      <p>Every session has one objective: light the grid before it lights you up. Strike the active tiles, clear the zones, outlast your opponents. The grid always fights back harder.</p>
+      <p>Hit the green tiles to score. Dodge the red. Use the blue to regroup. Simple to learn in 10 seconds. Impossible to master in a lifetime. The grid always fights back harder.</p>
     </div>
     <div class="concept-card">
       <div class="concept-icon">🔥</div>
@@ -663,7 +679,7 @@
 <section class="section" id="colors">
   <div class="section-label">Visual Identity</div>
   <h2>Color <span class="accent">System</span></h2>
-  <p class="lead" id="color-lead">Every color in the palette maps directly to the in-game tile language — so the brand and the experience are one and the same.</p>
+  <p class="lead" id="color-lead">Every color maps directly to the in-game tile language — so the brand and the experience are one and the same.</p>
   <div class="color-grid" id="color-grid">
     <!-- Populated by JS -->
   </div>
@@ -694,7 +710,7 @@
     </div>
     <div class="type-sample">
       <div class="type-label">Body Copy</div>
-      <div class="t-body-text">Step onto the grid and feel it come alive. Every tile pulses in real time — strike to score, dodge the red, survive the round. You're not playing a game. The game is playing you.</div>
+      <div class="t-body-text">Step onto the grid and feel it come alive. Every tile pulses in real time — strike green to score, dodge red, find blue to breathe. You're not playing a game. The game is playing you.</div>
       <div class="type-meta" id="type-body-meta"></div>
     </div>
   </div>
@@ -706,13 +722,13 @@
 <section class="section" id="logo">
   <div class="section-label">Visual Identity</div>
   <h2>Logo <span class="accent">System</span></h2>
-  <p class="lead">The Gridstrike wordmark splits at the seam — GRID in primary, STRIKE as accent. The icon mark uses a 3×3 tile grid with one lit "strike" cell, reflecting the core game mechanic at a glance.</p>
+  <p class="lead">The Gridstrike wordmark splits at the seam — GRID in white, STRIKE in green. The icon mark uses a 3×3 tile grid showing all three tile states: green target, red danger, blue safe — the entire game in one mark.</p>
   <div class="logo-showcase">
     <div class="logo-card on-dark">
       <div class="logo-lockup">
         <div class="icon-mark">
-          <div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-on"></div>
-          <div class="ic ic-off"></div><div class="ic ic-lit"></div><div class="ic ic-off"></div>
+          <div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-safe"></div>
+          <div class="ic ic-off"></div><div class="ic ic-danger"></div><div class="ic ic-off"></div>
           <div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-on"></div>
         </div>
         <div class="logo-wordmark"><span class="wm-grid">GRID</span><span class="wm-strike">STRIKE</span></div>
@@ -722,8 +738,8 @@
     <div class="logo-card on-light">
       <div class="logo-lockup">
         <div class="icon-mark">
-          <div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-on"></div>
-          <div class="ic ic-off"></div><div class="ic ic-lit"></div><div class="ic ic-off"></div>
+          <div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-safe"></div>
+          <div class="ic ic-off"></div><div class="ic ic-danger"></div><div class="ic ic-off"></div>
           <div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-on"></div>
         </div>
         <div class="logo-wordmark"><span class="wm-grid">GRID</span><span class="wm-strike">STRIKE</span></div>
@@ -733,8 +749,8 @@
     <div class="logo-card on-brand">
       <div class="logo-lockup">
         <div class="icon-mark">
-          <div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-on"></div>
-          <div class="ic ic-off"></div><div class="ic ic-lit"></div><div class="ic ic-off"></div>
+          <div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-safe"></div>
+          <div class="ic ic-off"></div><div class="ic ic-danger"></div><div class="ic ic-off"></div>
           <div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-on"></div>
         </div>
         <div class="logo-wordmark"><span class="wm-grid">GRID</span><span class="wm-strike">STRIKE</span></div>
@@ -784,23 +800,19 @@
 <section class="section" id="tiles">
   <div class="section-label">Game Mechanics</div>
   <h2>The Tile <span class="accent">Language</span></h2>
-  <p class="lead">No tutorial needed. The grid teaches itself in the first 10 seconds. Color is the only language that matters — and it's universal.</p>
+  <p class="lead">No tutorial needed. The grid teaches itself in the first 10 seconds. Three colors. Three meanings. One rule: survive the round.</p>
   <div class="tile-legend">
     <div class="tile-item">
-      <div class="tile-dot" style="background:#00BFCC;box-shadow:0 0 14px rgba(0,191,204,0.45);"></div>
-      <div><h4>Blue — Strike It</h4><p>Active tile. Hit it to score. Miss it, lose your streak.</p></div>
+      <div class="tile-dot" style="background:#00E564;box-shadow:0 0 16px rgba(0,229,100,0.5);"></div>
+      <div><h4>Green — Strike It</h4><p>Active target tile. Hit it to score. Miss it, lose your streak. The whole game lives here.</p></div>
     </div>
     <div class="tile-item">
-      <div class="tile-dot" style="background:#FF3030;box-shadow:0 0 14px rgba(255,48,48,0.45);"></div>
-      <div><h4>Red — Danger Zone</h4><p>Step here and lose points. The floor is hunting you.</p></div>
+      <div class="tile-dot" style="background:#E8204E;box-shadow:0 0 16px rgba(232,32,78,0.5);"></div>
+      <div><h4>Red — Danger Zone</h4><p>Step here and lose points. The floor is hunting you. Stay fast or get punished.</p></div>
     </div>
     <div class="tile-item">
-      <div class="tile-dot" style="background:#00CC66;box-shadow:0 0 14px rgba(0,204,102,0.45);"></div>
-      <div><h4>Green — Safe Zone</h4><p>Regroup. It won't last long.</p></div>
-    </div>
-    <div class="tile-item">
-      <div class="tile-dot" style="background:var(--primary);box-shadow:0 0 14px var(--glow);"></div>
-      <div><h4>Gold — Power Strike</h4><p>Rare tile. Maximum points. First to reach it wins the round.</p></div>
+      <div class="tile-dot" style="background:#1A6EFF;box-shadow:0 0 16px rgba(26,110,255,0.5);"></div>
+      <div><h4>Blue — Safe Zone</h4><p>Regroup. Catch your breath. It won't last long — the grid always takes it back.</p></div>
     </div>
   </div>
 </section>
@@ -814,46 +826,46 @@
   <p class="lead">Two 18-minute rounds per session. Multiple game modes keep the grid unpredictable — even regulars never play the same game twice.</p>
   <div class="games-grid">
     <div class="game-card">
-      <div class="game-color-bar" style="background:linear-gradient(90deg,#00C0FF,#0070FF);"></div>
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#00E564,#00B84C);"></div>
       <div class="game-icon">⚡</div>
       <h3>GRIDSTRIKE</h3>
       <span class="game-tag">Core Mode</span>
-      <p>Strike every blue tile before time runs out. The grid speeds up. You don't.</p>
+      <p>Strike every green tile before time runs out. The grid speeds up. You don't.</p>
     </div>
     <div class="game-card">
-      <div class="game-color-bar" style="background:linear-gradient(90deg,#FF2D55,#FF6B00);"></div>
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#E8204E,#FF5B3B);"></div>
       <div class="game-icon">🔥</div>
       <h3>BLACKOUT</h3>
       <span class="game-tag">Elimination</span>
-      <p>One wrong tile and you're out. Last player standing takes the grid.</p>
+      <p>One red tile and you're out. Last player standing takes the grid.</p>
     </div>
     <div class="game-card">
-      <div class="game-color-bar" style="background:linear-gradient(90deg,var(--primary),#FF9500);"></div>
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#00E564,#1A6EFF);"></div>
       <div class="game-icon">👥</div>
       <h3>SQUAD STRIKE</h3>
       <span class="game-tag">Team Mode</span>
-      <p>Divide the grid. Control your zone. Most tiles lit at the buzzer wins.</p>
+      <p>Divide the grid. Control your zone. Most green tiles lit at the buzzer wins.</p>
     </div>
     <div class="game-card">
-      <div class="game-color-bar" style="background:linear-gradient(90deg,#00CC66,#00CCFF);"></div>
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#00E564,#00FF9D);"></div>
       <div class="game-icon">🏆</div>
       <h3>POWER GRID</h3>
       <span class="game-tag">Challenge</span>
-      <p>Gold tiles only. Appear and vanish in 2 seconds. Hit them all or collapse.</p>
+      <p>Rapid-fire green tiles. Appear and vanish in 2 seconds. Hit them all or collapse.</p>
     </div>
     <div class="game-card">
-      <div class="game-color-bar" style="background:linear-gradient(90deg,#AA00FF,#FF2D55);"></div>
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#1A6EFF,#E8204E);"></div>
       <div class="game-icon">🌊</div>
       <h3>WAVE MODE</h3>
       <span class="game-tag">Survival</span>
-      <p>Strike waves sweep across the floor. Keep up or fall behind. Waves never stop.</p>
+      <p>Green waves sweep across the floor. Keep up or fall behind. Waves never stop.</p>
     </div>
     <div class="game-card">
-      <div class="game-color-bar" style="background:linear-gradient(90deg,#00C0FF,var(--primary));"></div>
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#00E564,#E8204E);"></div>
       <div class="game-icon">🎉</div>
       <h3>PARTY STRIKE</h3>
       <span class="game-tag">All Ages</span>
-      <p>Slower pace. Bigger rewards. Maximum chaos. Built for mixed groups.</p>
+      <p>Slower pace. Bigger rewards. Maximum chaos. Built for mixed groups — from 4 to 94.</p>
     </div>
   </div>
 </section>
@@ -881,7 +893,7 @@
 <section class="section" id="taglines">
   <div class="section-label">Brand Voice</div>
   <h2>Tagline <span class="accent">Options</span></h2>
-  <p class="lead" id="tagline-lead">Primary tagline shifts by theme — but all five work across the brand.</p>
+  <p class="lead" id="tagline-lead">Primary recommendation shifts by theme — all five work across the brand.</p>
   <div class="tagline-list" id="tagline-list"><!-- populated by JS --></div>
 </section>
 
@@ -895,17 +907,18 @@
 <script>
 // ══ THEME DATA ══
 const themes = {
+
   tactical: {
     eyebrow: 'Brand Identity Concept — 01 Tactical',
     tagline: 'LIGHT. STRIKE. CLEAR.',
     sub: 'An immersive LED tile arena. Fast. Precise. Relentless. Designed for the competitor in everyone.',
-    colorLead: 'Gunmetal and olive form the base. Tactical orange is the strike. Warm off-white for readability in-arena.',
+    colorLead: 'Ops black base with the three tile colors front and center. Green leads. Red signals danger. Blue marks the safe lane.',
     colors: [
-      { name: 'Ops Black',    hex: '#09090A', use: 'Primary BG',         block: '#09090A', border: '1px solid rgba(255,255,255,0.07)' },
-      { name: 'Strike Orange',hex: '#E85C00', use: 'Primary Brand',       block: 'linear-gradient(135deg,#E85C00,#FF7A20)' },
-      { name: 'Grid Olive',   hex: '#7A8C6A', use: 'Secondary / Tactical',block: '#7A8C6A' },
-      { name: 'Field Tan',    hex: '#D4CDB8', use: 'Text / Readability',  block: '#D4CDB8' },
-      { name: 'Carbon',       hex: '#181916', use: 'Cards / Surfaces',    block: '#181916', border: '1px solid rgba(255,255,255,0.07)' },
+      { name: 'Ops Black',     hex: '#090A08', use: 'Primary BG',          block: '#090A08', border: '1px solid rgba(255,255,255,0.08)' },
+      { name: 'Strike Green',  hex: '#00E564', use: 'Primary — Target Tile', block: 'linear-gradient(135deg,#00E564,#00C454)' },
+      { name: 'Danger Red',    hex: '#E8204E', use: 'Accent — Danger Tile', block: 'linear-gradient(135deg,#E8204E,#C41438)' },
+      { name: 'Safe Blue',     hex: '#1A6EFF', use: 'Tertiary — Safe Zone', block: 'linear-gradient(135deg,#1A6EFF,#0044CC)' },
+      { name: 'Carbon',        hex: '#181C15', use: 'Cards / Surfaces',     block: '#181C15', border: '1px solid rgba(255,255,255,0.07)' },
     ],
     typeLead: 'Bebas Neue owns the display. Barlow Condensed for subheads and labels — military, compact, legible. Barlow for body.',
     typeDisplayMeta: 'Bebas Neue — Logo, hero titles, game mode names',
@@ -913,20 +926,20 @@ const themes = {
     typeHeadlineMeta: 'Barlow Condensed 700 — Headlines, subheadings, card titles',
     typeLabelMeta: 'Barlow Condensed 700 Uppercase — Labels, badges, eyebrows',
     typeBodyMeta: 'Barlow 400 — Body copy, descriptions, FAQs',
-    voiceLead: 'Tactical. Precise. Confident without bravado. Like a coach who knows you can do it — and won\'t let you quit.',
+    voiceLead: "Tactical. Precise. Confident without bravado. Like a coach who knows you can do it — and won't let you quit.",
     copy: [
-      'Step on the grid. Strike the tiles. Beat the clock.',
+      'Step on the grid. Strike green. Survive red. Use blue wisely.',
       'Your squad. One grid. 18 minutes to find out who\'s got it.',
       'Skip the party supplies. Book the arena. Make them earn it.',
       'Team building that actually builds teams. On the grid, rank disappears.',
-      '340 tiles. 18 minutes. The grid won again. Next session: 6pm. #Gridstrike',
+      '340 tiles. 18 minutes. Grid won again. 6pm session open. #Gridstrike',
     ],
     taglines: [
-      { text: 'LIGHT. STRIKE. CLEAR.',      note: 'Tactical mission language — instant',    primary: true },
-      { text: 'THE FLOOR IS LIVE',           note: 'Visceral · Crosses all themes',          primary: false },
-      { text: 'STRIKE AS ONE',               note: 'Team-focused · Events',                  primary: false },
-      { text: 'THE GRID FIGHTS BACK',        note: 'Competitive edge · Launch campaign',     primary: false },
-      { text: 'EVERY TILE COUNTS',           note: 'Stakes-driven · Ad copy',               primary: false },
+      { text: 'LIGHT. STRIKE. CLEAR.',   note: 'Mission language — instant read',         primary: true },
+      { text: 'THE FLOOR IS LIVE',       note: 'Visceral · Crosses all themes',            primary: false },
+      { text: 'STRIKE AS ONE',           note: 'Team-focused · Events',                    primary: false },
+      { text: 'THE GRID FIGHTS BACK',    note: 'Competitive edge · Launch campaign',       primary: false },
+      { text: 'GREEN MEANS GO',          note: 'Tile language · Instantly understood',     primary: false },
     ],
     footerTag: 'LIGHT. STRIKE. CLEAR.',
   },
@@ -934,73 +947,73 @@ const themes = {
   sport: {
     eyebrow: 'Brand Identity Concept — 02 High-Voltage Sport',
     tagline: 'EVERY TILE COUNTS.',
-    sub: 'The most athletic thing you\'ll do indoors. LED floor. Real competition. Zero excuses.',
-    colorLead: 'Pure black. Pure white. One volt accent that hits like a neon sign in a dark room. No decoration — just signal.',
+    sub: "The most athletic thing you'll do indoors. LED floor. Real competition. Zero excuses.",
+    colorLead: 'Pure black canvas. Green is the only color that matters — target, brand, obsession. Red and blue as hard contrast accents.',
     colors: [
-      { name: 'Pure Black',   hex: '#080808', use: 'Base',                 block: '#080808', border: '1px solid rgba(255,255,255,0.07)' },
-      { name: 'Volt',         hex: '#C8FF00', use: 'Primary Brand',        block: 'linear-gradient(135deg,#C8FF00,#AADD00)' },
-      { name: 'Pure White',   hex: '#FFFFFF', use: 'Type / Contrast',      block: '#FFFFFF' },
-      { name: 'Pitch',        hex: '#111111', use: 'Cards / Surfaces',     block: '#111111', border: '1px solid rgba(255,255,255,0.06)' },
-      { name: 'Mid Gray',     hex: '#888888', use: 'Secondary Text',       block: '#888888' },
+      { name: 'Pure Black',    hex: '#080808', use: 'Base',                  block: '#080808', border: '1px solid rgba(255,255,255,0.07)' },
+      { name: 'Strike Green',  hex: '#00E564', use: 'Primary — Target Tile', block: 'linear-gradient(135deg,#00E564,#00FF7A)' },
+      { name: 'Danger Red',    hex: '#E8204E', use: 'High Alert — Danger',   block: 'linear-gradient(135deg,#E8204E,#FF3B63)' },
+      { name: 'Safe Blue',     hex: '#1A6EFF', use: 'Safe Zone — Contrast',  block: 'linear-gradient(135deg,#1A6EFF,#3D8FFF)' },
+      { name: 'Pure White',    hex: '#FFFFFF', use: 'Type / Max Contrast',   block: '#FFFFFF' },
     ],
     typeLead: 'Inter 900 for everything at display size — no decorative fonts, just pure typographic weight. Clean, athletic, zero ego.',
     typeDisplayMeta: 'Inter Black 900 — Maximum weight, minimum decoration',
-    typeHeadlineSample: 'The Most Athletic Thing You\'ll Do Indoors.',
+    typeHeadlineSample: "The Most Athletic Thing You'll Do Indoors.",
     typeHeadlineMeta: 'Inter 800 — Headlines, subheadings, powerful statements',
     typeLabelMeta: 'Inter 700 Uppercase + tracking — Labels, navigation, badges',
     typeBodyMeta: 'Inter 400 — Body copy, fine print, descriptions',
-    voiceLead: 'Sharp. Decisive. No fluff. Like Nike ad copy — every word earns its spot or it\'s cut.',
+    voiceLead: "Sharp. Decisive. No fluff. Like Nike ad copy — every word earns its spot or it's cut.",
     copy: [
-      'The floor is live. Move.',
+      'Green means go. Red means pain. Blue means get ready.',
       'Book your lane. 18 minutes. Beat the grid.',
-      'Best party in the city. No cakes required.',
+      'Best party in the city. No cake required.',
       'Your team. One grid. Find out who shows up under pressure.',
-      'Personal best: 412 tiles. The grid still won. 🔋 #Gridstrike',
+      'Personal best: 412 green tiles. Grid still won. 🟢 #Gridstrike',
     ],
     taglines: [
-      { text: 'EVERY TILE COUNTS.',          note: 'Sport precision · Punchy · Ad-ready',   primary: true },
-      { text: 'THE FLOOR IS LIVE',           note: 'Visceral · Universal',                  primary: false },
-      { text: 'HIT DIFFERENT.',              note: 'Sport tone · Double meaning',            primary: false },
-      { text: 'STRIKE AS ONE',               note: 'Team-focused',                          primary: false },
-      { text: 'MOVE. STRIKE. WIN.',          note: 'Action sequence · Brand rhythm',        primary: false },
+      { text: 'EVERY TILE COUNTS.',      note: 'Sport precision · Punchy · Ad-ready',     primary: true },
+      { text: 'THE FLOOR IS LIVE',       note: 'Visceral · Universal',                     primary: false },
+      { text: 'HIT DIFFERENT.',          note: 'Sport tone · Double meaning',              primary: false },
+      { text: 'GREEN MEANS GO',          note: 'Tile language · Brand anchor',             primary: false },
+      { text: 'MOVE. STRIKE. WIN.',      note: 'Action sequence · Brand rhythm',           primary: false },
     ],
     footerTag: 'EVERY TILE COUNTS.',
   },
 
-  luxury: {
-    eyebrow: 'Brand Identity Concept — 03 Dark Luxury',
-    tagline: 'THE GRID. REFINED.',
-    sub: 'A premium immersive experience where cutting-edge LED architecture meets the thrill of live competition. For those who expect more.',
-    colorLead: 'Midnight foundation. Gold as the only warmth. Deep violet as depth and intrigue. A palette that commands a premium price point.',
+  arena: {
+    eyebrow: 'Brand Identity Concept — 03 Arena',
+    tagline: 'THE GRID IS LIVE.',
+    sub: 'The floor is the field. The tiles are the score. Tonight, the arena belongs to whoever moves first.',
+    colorLead: 'Deep arena black — like the lights going down before tip-off. Green burns bright. Red and blue read like scoreboard colors in a packed house.',
     colors: [
-      { name: 'Midnight',     hex: '#07070F', use: 'Primary Base',         block: 'linear-gradient(135deg,#07070F,#0E0E1C)', border: '1px solid rgba(255,255,255,0.06)' },
-      { name: 'Strike Gold',  hex: '#C9A84C', use: 'Primary Brand',        block: 'linear-gradient(135deg,#C9A84C,#E8C96A)' },
-      { name: 'Amethyst',     hex: '#8B7FB8', use: 'Secondary / Depth',    block: '#8B7FB8' },
-      { name: 'Pearl',        hex: '#F0EDE8', use: 'Primary Text',         block: '#F0EDE8' },
-      { name: 'Deep Navy',    hex: '#1A1535', use: 'Cards / Surfaces',     block: '#1A1535', border: '1px solid rgba(255,255,255,0.05)' },
+      { name: 'Arena Black',   hex: '#05080E', use: 'Primary Base',          block: 'linear-gradient(135deg,#05080E,#0C1220)', border: '1px solid rgba(255,255,255,0.06)' },
+      { name: 'Strike Green',  hex: '#00E564', use: 'Primary — Target Tile', block: 'linear-gradient(135deg,#00E564,#00FF7A)' },
+      { name: 'Danger Red',    hex: '#E8204E', use: 'High Energy — Danger',  block: 'linear-gradient(135deg,#E8204E,#FF2D5B)' },
+      { name: 'Safe Blue',     hex: '#1A6EFF', use: 'Safe Zone — Deep',      block: 'linear-gradient(135deg,#1A6EFF,#0044DD)' },
+      { name: 'Grid Surface',  hex: '#0C1220', use: 'Cards / HUD Elements',  block: '#0C1220', border: '1px solid rgba(26,110,255,0.15)' },
     ],
-    typeLead: 'Playfair Display for the wordmark and display moments — editorial authority. Raleway for subheads. Inter for body. Contrast = premium.',
-    typeDisplayMeta: 'Playfair Display 900 — Logo, hero titles, editorial moments',
-    typeHeadlineSample: 'An Experience Worth Every Second',
-    typeHeadlineMeta: 'Raleway 600 — Headings, subheadings, feature copy',
-    typeLabelMeta: 'Raleway 700 Uppercase — Labels, navigation, eyebrows',
-    typeBodyMeta: 'Inter 300 — Body copy, refined descriptions',
-    voiceLead: 'Elevated. Warm but never casual. Like a concierge who knows exactly what you need before you ask.',
+    typeLead: 'Orbitron for the display and wordmark — scoreboard authority, broadcast-ready, unmistakably arena. Barlow Condensed for subheads and body.',
+    typeDisplayMeta: 'Orbitron 900 — Logo, hero titles, scoreboard displays, HUD overlays',
+    typeHeadlineSample: 'Enter the Grid. Dominate the Night.',
+    typeHeadlineMeta: 'Barlow Condensed 700 — Event headings, subheads, game mode names',
+    typeLabelMeta: 'Barlow Condensed 700 Uppercase — Labels, navigation, timer displays',
+    typeBodyMeta: 'Barlow 400 — Session descriptions, booking copy, FAQ',
+    voiceLead: 'Big venue energy. Broadcast-ready. Like an announcer who makes everything sound like a championship moment — because it is.',
     copy: [
-      'Step onto the grid. The tiles know you\'re here.',
-      'Reserve your arena. An experience designed for the ones who want more.',
-      'Give them an evening they won\'t find anywhere else.',
-      'The best teams don\'t just collaborate — they compete. Reserve the arena.',
-      'An evening on the grid. Moments that linger. #Gridstrike',
+      'The arena floor is alive. Green. Red. Blue. Move or lose.',
+      'Doors open at 6. The grid lights at 6:02. Be on it.',
+      'The ultimate birthday venue — if they can handle the heat.',
+      'Corporate challenge night. The tiles do the managing for you.',
+      'Arena packed. Grid lit. First session just started. You watching? 📡 #Gridstrike',
     ],
     taglines: [
-      { text: 'THE GRID. REFINED.',          note: 'Luxury positioning · Premium signal',   primary: true },
-      { text: 'THE FLOOR IS LIVE',           note: 'Universal · Also works in luxury',      primary: false },
-      { text: 'WHERE COMPETITION MEETS ART', note: 'Elevated · Gallery / venue crossover',  primary: false },
-      { text: 'AN EXPERIENCE APART',         note: 'Differentiated · Adult market',         primary: false },
-      { text: 'EVERY TILE COUNTS.',          note: 'Works across all three themes',         primary: false },
+      { text: 'THE GRID IS LIVE.',       note: 'Event energy · Broadcast feel',            primary: true },
+      { text: 'THE FLOOR IS LIVE',       note: 'Universal · Works across themes',           primary: false },
+      { text: 'ENTER THE GRID.',         note: 'Arena entry · Action command',              primary: false },
+      { text: 'GREEN MEANS GO',          note: 'Tile language · Crowd-ready',              primary: false },
+      { text: 'FEEL THE GRID.',          note: 'Experiential · Sensory-first',              primary: false },
     ],
-    footerTag: 'THE GRID. REFINED.',
+    footerTag: 'THE GRID IS LIVE.',
   },
 };
 
@@ -1013,11 +1026,11 @@ function setTheme(t) {
   const d = themes[t];
 
   // Hero
-  document.getElementById('hero-eyebrow').textContent    = d.eyebrow;
-  document.getElementById('hero-tagline').textContent    = d.tagline;
-  document.getElementById('hero-sub').textContent        = d.sub;
+  document.getElementById('hero-eyebrow').textContent = d.eyebrow;
+  document.getElementById('hero-tagline').textContent = d.tagline;
+  document.getElementById('hero-sub').textContent     = d.sub;
 
-  // Tactical: stacked, Sport: outline grid / solid strike, Luxury: italic strike
+  // Title markup
   const titleEl = document.getElementById('hero-title');
   if (t === 'sport') {
     titleEl.innerHTML = '<span class="t-grid">GRID</span><span class="t-strike">STRIKE</span>';
