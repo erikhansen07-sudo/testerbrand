@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GRIDSTRIKE — Brand Identity</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:    #08080E;
+      --navy:     #0D0D1A;
+      --cyan:     #00F0FF;
+      --yellow:   #FFD600;
+      --red:      #FF2D55;
+      --green:    #00FF88;
+      --white:    #FFFFFF;
+      --gray:     #A0A0B0;
+      --grid-line: rgba(0,240,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(8,8,14,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,240,255,0.1);
+    }
+    .nav-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900; font-size: 1.3rem;
+      color: var(--cyan);
+      letter-spacing: 0.15em;
+      text-shadow: 0 0 20px rgba(0,240,255,0.6);
+    }
+    .nav-logo span { color: var(--yellow); }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      color: var(--gray); text-decoration: none;
+      font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;
+      font-family: 'Rajdhani', sans-serif; font-weight: 600;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: var(--cyan); }
+
+    /* ─── HERO ─── */
+    #hero {
+      position: relative; height: 100vh; min-height: 700px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+
+    /* animated grid floor */
+    #grid-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+    }
+
+    /* perspective floor grid */
+    .floor-grid {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 55%;
+      background:
+        linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(0deg, var(--grid-line) 1px, transparent 1px);
+      background-size: 60px 60px;
+      transform: perspective(600px) rotateX(55deg);
+      transform-origin: bottom center;
+      opacity: 0.7;
+    }
+    .floor-glow {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 40%;
+      background: radial-gradient(ellipse at 50% 100%, rgba(0,240,255,0.18) 0%, transparent 70%);
+    }
+
+    /* tiles */
+    .tile-field {
+      position: absolute; inset: 0;
+      pointer-events: none;
+    }
+    .tile {
+      position: absolute;
+      border-radius: 4px;
+      animation: tilePulse var(--dur) var(--delay) infinite;
+      opacity: 0;
+    }
+    @keyframes tilePulse {
+      0%   { opacity: 0; transform: scale(0.9); }
+      20%  { opacity: 1; transform: scale(1); }
+      80%  { opacity: 0.8; }
+      100% { opacity: 0; transform: scale(0.95); }
+    }
+
+    .hero-content {
+      position: relative; z-index: 10;
+      text-align: center; padding: 0 1rem;
+    }
+    .hero-eyebrow {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 0.85rem; font-weight: 700;
+      letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 1.5rem;
+      opacity: 0.8;
+    }
+    .hero-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3.5rem, 10vw, 8rem);
+      letter-spacing: 0.08em;
+      line-height: 1;
+      color: var(--white);
+      text-shadow:
+        0 0 40px rgba(0,240,255,0.5),
+        0 0 80px rgba(0,240,255,0.2);
+      animation: logoGlow 3s ease-in-out infinite alternate;
+    }
+    .hero-logo .strike { color: var(--cyan); }
+    @keyframes logoGlow {
+      from { text-shadow: 0 0 30px rgba(0,240,255,0.4), 0 0 60px rgba(0,240,255,0.15); }
+      to   { text-shadow: 0 0 50px rgba(0,240,255,0.8), 0 0 100px rgba(0,240,255,0.35), 0 0 150px rgba(0,240,255,0.1); }
+    }
+
+    .hero-tagline {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(1.1rem, 3vw, 1.8rem);
+      font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--yellow);
+      margin-top: 1rem;
+      text-shadow: 0 0 20px rgba(255,214,0,0.5);
+    }
+    .hero-sub {
+      margin-top: 1.5rem;
+      font-size: 1rem; color: var(--gray);
+      max-width: 480px; margin-left: auto; margin-right: auto;
+      line-height: 1.6;
+    }
+    .hero-cta {
+      margin-top: 2.5rem;
+      display: inline-flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    }
+    .btn {
+      display: inline-block; padding: 0.85rem 2.2rem;
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: 0.9rem; letter-spacing: 0.15em; text-transform: uppercase;
+      text-decoration: none; border-radius: 3px;
+      cursor: pointer; transition: all 0.2s;
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: var(--cyan); color: var(--black);
+      box-shadow: 0 0 30px rgba(0,240,255,0.4);
+    }
+    .btn-primary:hover {
+      background: var(--white); box-shadow: 0 0 40px rgba(0,240,255,0.7);
+    }
+    .btn-outline {
+      border-color: var(--cyan); color: var(--cyan); background: transparent;
+    }
+    .btn-outline:hover { background: rgba(0,240,255,0.08); }
+
+    .scroll-hint {
+      position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: var(--gray); font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase; font-family: 'Rajdhani', sans-serif;
+      animation: bounce 2s infinite;
+    }
+    .scroll-hint::after {
+      content: ''; display: block; width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--cyan), transparent);
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50%       { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .section-label {
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: 0.75rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 0.75rem; opacity: 0.7;
+    }
+    h2 {
+      font-family: 'Orbitron', sans-serif; font-weight: 700;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    h2 .accent { color: var(--cyan); }
+    .lead {
+      font-size: 1.1rem; color: var(--gray);
+      max-width: 640px; line-height: 1.7; margin-bottom: 3rem;
+    }
+
+    /* divider */
+    .divider {
+      width: 100%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0.2; margin: 0 auto;
+    }
+
+    /* ─── CONCEPT ─── */
+    #concept { padding-top: 8rem; }
+    .concept-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; margin-top: 3rem;
+    }
+    .concept-card {
+      background: rgba(13,13,26,0.8);
+      border: 1px solid rgba(0,240,255,0.12);
+      border-radius: 8px; padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .concept-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .concept-card:hover { border-color: rgba(0,240,255,0.35); transform: translateY(-4px); }
+    .concept-card:hover::before { opacity: 1; }
+    .concept-icon {
+      font-size: 2.5rem; margin-bottom: 1rem;
+      filter: drop-shadow(0 0 8px rgba(0,240,255,0.5));
+    }
+    .concept-card h3 {
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: 1.1rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--white); margin-bottom: 0.75rem;
+    }
+    .concept-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
+
+    /* ─── COLORS ─── */
+    #colors { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .color-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr);
+      gap: 1rem; margin-top: 3rem;
+    }
+    .color-swatch {
+      border-radius: 8px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .swatch-block { height: 120px; width: 100%; }
+    .swatch-info { padding: 1rem; background: var(--navy); }
+    .swatch-name {
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: 0.85rem; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .swatch-hex { font-size: 0.75rem; color: var(--gray); font-family: monospace; }
+    .swatch-use { font-size: 0.7rem; color: var(--gray); margin-top: 0.25rem; opacity: 0.7; }
+
+    /* ─── TYPOGRAPHY ─── */
+    #typography { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .type-samples { margin-top: 3rem; display: flex; flex-direction: column; gap: 3rem; }
+    .type-sample {
+      border-left: 2px solid rgba(0,240,255,0.3);
+      padding-left: 2rem;
+    }
+    .type-label {
+      font-size: 0.7rem; color: var(--cyan); letter-spacing: 0.3em;
+      text-transform: uppercase; font-family: 'Rajdhani', sans-serif;
+      font-weight: 700; margin-bottom: 0.5rem; opacity: 0.7;
+    }
+    .type-meta { font-size: 0.75rem; color: var(--gray); margin-top: 0.5rem; }
+    .t-display {
+      font-family: 'Orbitron', sans-serif; font-weight: 900;
+      font-size: clamp(2rem, 5vw, 4.5rem);
+      color: var(--white); line-height: 1;
+      text-shadow: 0 0 30px rgba(0,240,255,0.3);
+    }
+    .t-headline {
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: clamp(1.5rem, 3vw, 2.5rem);
+      color: var(--white); letter-spacing: 0.05em;
+    }
+    .t-subhead {
+      font-family: 'Rajdhani', sans-serif; font-weight: 600;
+      font-size: 1.1rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--cyan);
+    }
+    .t-body { font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--gray); line-height: 1.7; max-width: 520px; }
+    .t-label-text {
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--yellow);
+    }
+
+    /* ─── LOGO CONCEPT ─── */
+    #logo { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .logo-showcase {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .logo-card {
+      border-radius: 8px; padding: 3rem 2rem;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1.5rem; min-height: 200px;
+      border: 1px solid rgba(0,240,255,0.1);
+    }
+    .logo-card.dark { background: var(--black); }
+    .logo-card.light { background: var(--white); }
+    .logo-card.cyan-bg { background: var(--cyan); }
+
+    .logo-mark {
+      font-family: 'Orbitron', sans-serif; font-weight: 900;
+      letter-spacing: 0.08em; line-height: 1;
+      text-align: center;
+    }
+    .logo-mark .grid-part { display: block; }
+    .logo-mark .strike-part { display: block; }
+    .logo-small { font-size: 1.4rem; }
+    .logo-medium { font-size: 1.8rem; }
+
+    .on-dark .grid-part { color: var(--white); }
+    .on-dark .strike-part { color: var(--cyan); }
+    .on-light .grid-part { color: var(--black); }
+    .on-light .strike-part { color: #0099AA; }
+    .on-cyan .grid-part { color: var(--black); }
+    .on-cyan .strike-part { color: var(--black); opacity: 0.6; }
+
+    .logo-icon {
+      width: 48px; height: 48px;
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 3px; padding: 4px;
+    }
+    .logo-icon-cell {
+      border-radius: 2px;
+      background: var(--cyan);
+    }
+    .logo-icon-cell.lit { background: var(--yellow); animation: cellBlink 1.5s infinite; }
+    .logo-icon-cell.dim { opacity: 0.15; }
+    @keyframes cellBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .logo-icon.on-light-icon .logo-icon-cell { background: var(--navy); }
+    .logo-icon.on-light-icon .logo-icon-cell.lit { background: #0099AA; }
+    .logo-icon.on-light-icon .logo-icon-cell.dim { opacity: 0.08; }
+    .logo-icon.on-cyan-icon .logo-icon-cell { background: rgba(0,0,0,0.4); }
+    .logo-icon.on-cyan-icon .logo-icon-cell.lit { background: var(--black); }
+    .logo-icon.on-cyan-icon .logo-icon-cell.dim { opacity: 0.15; }
+
+    .logo-caption {
+      font-family: 'Rajdhani', sans-serif; font-size: 0.7rem;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      font-weight: 700;
+    }
+    .on-dark .logo-caption { color: var(--gray); }
+    .on-light .logo-caption { color: #666; }
+    .on-cyan .logo-caption { color: rgba(0,0,0,0.5); }
+
+    /* ─── VOICE ─── */
+    #voice { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .voice-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2rem; margin-top: 3rem;
+    }
+    .voice-card {
+      background: var(--navy);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px; padding: 2rem;
+    }
+    .voice-card h3 {
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--cyan); margin-bottom: 1.25rem;
+    }
+    .voice-item {
+      display: flex; align-items: flex-start; gap: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+    .voice-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--cyan); margin-top: 0.45rem; flex-shrink: 0;
+    }
+    .voice-item p { font-size: 0.9rem; color: var(--gray); line-height: 1.5; }
+    .voice-item strong { color: var(--white); }
+
+    .copy-examples { margin-top: 3rem; display: flex; flex-direction: column; gap: 1.5rem; }
+    .copy-ex {
+      background: var(--navy); border-radius: 8px; padding: 1.75rem 2rem;
+      border-left: 3px solid var(--cyan);
+      position: relative;
+    }
+    .copy-ex-label {
+      font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--cyan); font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      margin-bottom: 0.75rem; opacity: 0.7;
+    }
+    .copy-ex p {
+      font-size: 1rem; line-height: 1.6; color: var(--white);
+      font-family: 'Rajdhani', sans-serif; font-weight: 500;
+    }
+
+    /* ─── GAMES ─── */
+    #games { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .games-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .game-card {
+      background: var(--navy);
+      border: 1px solid rgba(0,240,255,0.08);
+      border-radius: 8px; padding: 2rem;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .game-card:hover { border-color: rgba(0,240,255,0.3); transform: translateY(-4px); }
+    .game-color-bar {
+      position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    }
+    .game-icon { font-size: 2rem; margin-bottom: 1rem; margin-top: 0.5rem; }
+    .game-card h3 {
+      font-family: 'Orbitron', sans-serif; font-weight: 700;
+      font-size: 0.95rem; color: var(--white);
+      margin-bottom: 0.5rem; letter-spacing: 0.05em;
+    }
+    .game-card .game-tag {
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+      margin-bottom: 0.75rem; display: block;
+    }
+    .game-card p { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
+
+    /* ─── TILE LANGUAGE ─── */
+    #tiles { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .tile-legend {
+      display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 3rem;
+    }
+    .tile-item {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--navy); border-radius: 8px; padding: 1.25rem 1.75rem;
+      border: 1px solid rgba(255,255,255,0.05); flex: 1; min-width: 200px;
+    }
+    .tile-dot {
+      width: 40px; height: 40px; border-radius: 6px; flex-shrink: 0;
+    }
+    .tile-item h4 {
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--white); margin-bottom: 0.25rem;
+    }
+    .tile-item p { font-size: 0.8rem; color: var(--gray); }
+
+    /* ─── EXPERIENCE ─── */
+    #experience { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .exp-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 1.5rem; margin-top: 3rem;
+    }
+    .exp-stat {
+      text-align: center; padding: 2.5rem 1.5rem;
+      background: var(--navy); border-radius: 8px;
+      border: 1px solid rgba(0,240,255,0.1);
+    }
+    .exp-number {
+      font-family: 'Orbitron', sans-serif; font-weight: 900;
+      font-size: 3rem; color: var(--cyan);
+      text-shadow: 0 0 30px rgba(0,240,255,0.4);
+      line-height: 1;
+    }
+    .exp-unit { font-size: 1.5rem; color: var(--yellow); }
+    .exp-label {
+      font-family: 'Rajdhani', sans-serif; font-weight: 600;
+      font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--gray); margin-top: 0.75rem;
+    }
+
+    /* ─── TAGLINES ─── */
+    #taglines { padding: 6rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .tagline-list { margin-top: 3rem; display: flex; flex-direction: column; gap: 1rem; }
+    .tagline-row {
+      display: flex; align-items: center; gap: 2rem;
+      padding: 1.5rem 2rem; border-radius: 6px;
+      background: var(--navy); border: 1px solid rgba(255,255,255,0.04);
+      transition: border-color 0.2s;
+      cursor: default;
+    }
+    .tagline-row:hover { border-color: rgba(0,240,255,0.2); }
+    .tagline-row.primary { border-color: rgba(0,240,255,0.3); background: rgba(0,240,255,0.04); }
+    .tagline-badge {
+      font-family: 'Rajdhani', sans-serif; font-weight: 700;
+      font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+      padding: 0.25rem 0.6rem; border-radius: 3px; flex-shrink: 0;
+    }
+    .badge-primary { background: var(--cyan); color: var(--black); }
+    .badge-alt { background: rgba(255,255,255,0.08); color: var(--gray); }
+    .tagline-text {
+      font-family: 'Orbitron', sans-serif; font-weight: 700;
+      font-size: clamp(0.9rem, 2vw, 1.3rem);
+      color: var(--white); letter-spacing: 0.08em;
+    }
+    .tagline-row.primary .tagline-text { color: var(--cyan); }
+    .tagline-note { font-size: 0.8rem; color: var(--gray); margin-left: auto; font-family: 'Inter', sans-serif; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(0,240,255,0.08);
+      padding: 3rem 2rem; text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Orbitron', sans-serif; font-weight: 900;
+      font-size: 1.5rem; letter-spacing: 0.15em;
+      color: var(--white); margin-bottom: 0.5rem;
+    }
+    .footer-logo .strike { color: var(--cyan); }
+    footer p { font-size: 0.8rem; color: var(--gray); margin-top: 1rem; }
+    footer .tagline { color: var(--yellow); font-family: 'Rajdhani', sans-serif; font-weight: 600; letter-spacing: 0.3em; text-transform: uppercase; font-size: 0.8rem; margin-bottom: 0.5rem; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .concept-grid, .voice-grid, .games-grid, .exp-grid, .logo-showcase { grid-template-columns: 1fr 1fr; }
+      .color-grid { grid-template-columns: repeat(3, 1fr); }
+      nav ul { display: none; }
+    }
+    @media (max-width: 600px) {
+      .concept-grid, .voice-grid, .games-grid, .exp-grid, .logo-showcase, .color-grid { grid-template-columns: 1fr; }
+      nav { padding: 1rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">GRID<span>STRIKE</span></div>
+  <ul>
+    <li><a href="#concept">Concept</a></li>
+    <li><a href="#colors">Colors</a></li>
+    <li><a href="#logo">Logo</a></li>
+    <li><a href="#voice">Voice</a></li>
+    <li><a href="#games">Games</a></li>
+    <li><a href="#taglines">Taglines</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="floor-grid"></div>
+  <div class="floor-glow"></div>
+  <div class="tile-field" id="tileField"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Brand Identity Concept · 2025</div>
+    <div class="hero-logo">GRID<span class="strike">STRIKE</span></div>
+    <div class="hero-tagline">THE FLOOR IS LIVE</div>
+    <p class="hero-sub">An immersive LED tile arena where every move counts, every tile fires back, and the whole grid is against you.</p>
+    <div class="hero-cta">
+      <a href="#concept" class="btn btn-primary">Explore the Brand</a>
+      <a href="#taglines" class="btn btn-outline">See Taglines</a>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<div class="divider" style="max-width:1200px;margin:0 auto;"></div>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="section-label">Brand Foundation</div>
+  <h2>What is <span class="accent">Gridstrike?</span></h2>
+  <p class="lead">An interactive LED tile arena where physical movement meets real-time tech. Players step onto a live grid of hundreds of pressure-sensitive, color-reactive floor tiles and compete in fast-paced team games designed for all ages and skill levels.</p>
+
+  <div class="concept-grid">
+    <div class="concept-card">
+      <div class="concept-icon">⚡</div>
+      <h3>The Experience</h3>
+      <p>Step onto the Grid. Every tile beneath you pulses with light, responding in real time to where you stand, what you do, and how fast you move. Danger is red. Safety is green. Score is electric blue. And every round, the rules change.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-icon">👥</div>
+      <h3>Built for All Players</h3>
+      <p>Ages 4 to 94. Solo warriors, birthday squads, competitive crews, corporate teams. No prior skill. No equipment. Just show up, step on the grid, and compete. The floor does the rest.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-icon">🎮</div>
+      <h3>The Strike Mechanic</h3>
+      <p>Unlike passive entertainment, every session has an objective — eliminate the grid before it eliminates you. Strike the lit tiles, clear the zones, outlast your opponents. The grid always fights back.</p>
+    </div>
+    <div class="concept-card">
+      <div class="concept-icon">🔥</div>
+      <h3>Events & Parties</h3>
+      <p>Birthday takeovers. Team-building blitzes. Corporate showdowns. Date nights with stakes. Gridstrike is the arena that runs itself — staff, scoring, sound, and smack-talk included.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="max-width:1200px;margin:0 auto;"></div>
+
+<!-- COLORS -->
+<section id="colors">
+  <div class="section-label">Visual Identity</div>
+  <h2>Color <span class="accent">System</span></h2>
+  <p class="lead">Built from the grid up. Every color in the Gridstrike palette maps directly to the in-game tile language — so the brand and the experience are inseparable.</p>
+
+  <div class="color-grid">
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#08080E;border:1px solid rgba(255,255,255,0.08);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Strike Black</div>
+        <div class="swatch-hex">#08080E</div>
+        <div class="swatch-use">Primary BG · Base</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#00F0FF;box-shadow:inset 0 0 30px rgba(0,240,255,0.3);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Grid Cyan</div>
+        <div class="swatch-hex">#00F0FF</div>
+        <div class="swatch-use">Primary Brand · Score Tiles</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#FFD600;box-shadow:inset 0 0 30px rgba(255,214,0,0.3);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Strike Gold</div>
+        <div class="swatch-hex">#FFD600</div>
+        <div class="swatch-use">Highlights · CTA · Energy</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#FF2D55;box-shadow:inset 0 0 30px rgba(255,45,85,0.3);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Danger Red</div>
+        <div class="swatch-hex">#FF2D55</div>
+        <div class="swatch-use">Alert · Danger Zone Tiles</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#00FF88;box-shadow:inset 0 0 30px rgba(0,255,136,0.3);"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Safe Green</div>
+        <div class="swatch-hex">#00FF88</div>
+        <div class="swatch-use">Success · Safe Zone Tiles</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="max-width:1200px;margin:0 auto;"></div>
+
+<!-- TYPOGRAPHY -->
+<section id="typography">
+  <div class="section-label">Visual Identity</div>
+  <h2>Type <span class="accent">System</span></h2>
+  <p class="lead">Three typefaces. One hierarchy. Orbitron owns the logo and display moments. Rajdhani drives navigation, labels, and energy. Inter handles the real world — body copy, pricing, fine print.</p>
+
+  <div class="type-samples">
+    <div class="type-sample">
+      <div class="type-label">Display / Logo — Orbitron Black 900</div>
+      <div class="t-display">GRIDSTRIKE</div>
+      <div class="type-meta">Use for: Logo, hero headlines, game mode names, section openers</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Headline — Rajdhani Bold 700</div>
+      <div class="t-headline">Strike as One. Light the Grid.</div>
+      <div class="type-meta">Use for: Subheadings, card titles, callouts, marketing headlines</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Label / Eyebrow — Rajdhani 700 + Letter Spacing</div>
+      <div class="t-subhead">Arena · Experience · Events</div>
+      <div class="type-meta">Use for: Section labels, navigation, badges, tags — always uppercase</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Body — Inter Regular 400</div>
+      <div class="t-body">Step onto the grid and feel it come alive. Every tile pulses in real time — blue to score, red to dodge, green to survive. You're not playing a game. The game is playing you.</div>
+      <div class="type-meta">Use for: Descriptions, FAQs, pricing copy, all paragraph text</div>
+    </div>
+    <div class="type-sample">
+      <div class="type-label">Label — Rajdhani 700 Uppercase Gold</div>
+      <div class="t-label-text">Book Your Strike Session · From $30/person</div>
+      <div class="type-meta">Use for: CTAs, pricing flags, urgency labels, counters</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="max-width:1200px;margin:0 auto;"></div>
+
+<!-- LOGO -->
+<section id="logo">
+  <div class="section-label">Visual Identity</div>
+  <h2>Logo <span class="accent">System</span></h2>
+  <p class="lead">The Gridstrike wordmark splits at the seam — GRID in white, STRIKE in cyan. The icon mark uses a 3×3 tile grid with one lit "strike" cell, representing the game's core mechanic at a glance.</p>
+
+  <div class="logo-showcase">
+    <!-- On Black -->
+    <div class="logo-card dark on-dark">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="logo-icon">
+          <div class="logo-icon-cell"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell lit"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell"></div>
+        </div>
+        <div class="logo-mark logo-medium on-dark">
+          <span class="grid-part">GRID</span><span class="strike-part">STRIKE</span>
+        </div>
+      </div>
+      <span class="logo-caption on-dark">On Black — Primary</span>
+    </div>
+
+    <!-- On White -->
+    <div class="logo-card light on-light">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="logo-icon on-light-icon">
+          <div class="logo-icon-cell"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell lit"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell"></div>
+        </div>
+        <div class="logo-mark logo-medium on-light">
+          <span class="grid-part">GRID</span><span class="strike-part">STRIKE</span>
+        </div>
+      </div>
+      <span class="logo-caption on-light">On White — Secondary</span>
+    </div>
+
+    <!-- On Cyan -->
+    <div class="logo-card cyan-bg on-cyan">
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div class="logo-icon on-cyan-icon">
+          <div class="logo-icon-cell"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell lit"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell"></div>
+          <div class="logo-icon-cell dim"></div>
+          <div class="logo-icon-cell"></div>
+        </div>
+        <div class="logo-mark logo-medium on-cyan">
+          <span class="grid-part">GRID</span><span class="strike-part">STRIKE</span>
+        </div>
+      </div>
+      <span class="logo-caption on-cyan">On Cyan — Impact</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="max-width:1200px;margin:0 auto;"></div>
+
+<!-- BRAND VOICE -->
+<section id="voice">
+  <div class="section-label">Brand Voice</div>
+  <h2>Tone & <span class="accent">Personality</span></h2>
+  <p class="lead">Gridstrike is hype without cringe. Competitive without exclusion. Technical without complexity. The voice is the MC in the room who makes every player feel like a champion.</p>
+
+  <div class="voice-grid">
+    <div class="voice-card">
+      <h3>We Are</h3>
+      <div class="voice-item"><div class="voice-dot"></div><p><strong>Electric</strong> — Every word should feel like the moment before a round starts</p></div>
+      <div class="voice-item"><div class="voice-dot"></div><p><strong>Inclusive</strong> — Nobody gets left out. The grid accepts everyone.</p></div>
+      <div class="voice-item"><div class="voice-dot"></div><p><strong>Punchy</strong> — Short sentences. Active verbs. No filler.</p></div>
+      <div class="voice-item"><div class="voice-dot"></div><p><strong>Confident</strong> — We don't ask if you're ready. We tell you to bring it.</p></div>
+      <div class="voice-item"><div class="voice-dot"></div><p><strong>Playful</strong> — We don't take ourselves too seriously. But the score? That's real.</p></div>
+    </div>
+    <div class="voice-card">
+      <h3>We Are Not</h3>
+      <div class="voice-item"><div class="voice-dot" style="background:var(--red);"></div><p><strong>Corporate</strong> — No "synergy." No "leveraging." No "end-to-end solutions."</p></div>
+      <div class="voice-item"><div class="voice-dot" style="background:var(--red);"></div><p><strong>Aggressive</strong> — Intense, yes. Mean, no. The competition is on the grid, not in the copy.</p></div>
+      <div class="voice-item"><div class="voice-dot" style="background:var(--red);"></div><p><strong>Childish</strong> — Family-friendly doesn't mean dumbed down.</p></div>
+      <div class="voice-item"><div class="voice-dot" style="background:var(--red);"></div><p><strong>Over-explained</strong> — Don't describe the tech. Describe how it feels.</p></div>
+      <div class="voice-item"><div class="voice-dot" style="background:var(--red);"></div><p><strong>Passive</strong> — The floor is live. The copy should be too.</p></div>
+    </div>
+  </div>
+
+  <div class="copy-examples">
+    <div class="copy-ex">
+      <div class="copy-ex-label">Hero / Homepage</div>
+      <p>"Step on the grid. The tiles light up. You've got seconds. Move."</p>
+    </div>
+    <div class="copy-ex">
+      <div class="copy-ex-label">Booking CTA</div>
+      <p>"Your crew. Your grid. 18 minutes to prove who's got game."</p>
+    </div>
+    <div class="copy-ex">
+      <div class="copy-ex-label">Birthday Party</div>
+      <p>"Skip the bounce house. Throw the party they'll actually remember. Book a Strike session."</p>
+    </div>
+    <div class="copy-ex">
+      <div class="copy-ex-label">Corporate / Team Building</div>
+      <p>"Trust falls are dead. Light up the grid and see who your team really is under pressure."</p>
+    </div>
+    <div class="copy-ex">
+      <div class="copy-ex-label">Social Caption</div>
+      <p>"New personal record. 340 tiles in 18 minutes. The grid still won. 🔵⚡ #Gridstrike"</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="max-width:1200px;margin:0 auto;"></div>
+
+<!-- TILE LANGUAGE -->
+<section id="tiles">
+  <div class="section-label">Game Mechanics</div>
+  <h2>The Tile <span class="accent">Language</span></h2>
+  <p class="lead">Players don't need instructions. The grid teaches itself. Color is the only language that matters — and it's universal.</p>
+
+  <div class="tile-legend">
+    <div class="tile-item">
+      <div class="tile-dot" style="background:#00F0FF;box-shadow:0 0 16px rgba(0,240,255,0.5);"></div>
+      <div>
+        <h4>Blue — Strike It</h4>
+        <p>Active tile. Hit it to score. Miss it and lose your streak.</p>
+      </div>
+    </div>
+    <div class="tile-item">
+      <div class="tile-dot" style="background:#FF2D55;box-shadow:0 0 16px rgba(255,45,85,0.5);"></div>
+      <div>
+        <h4>Red — Danger Zone</h4>
+        <p>Step here and lose points. The floor is hunting you.</p>
+      </div>
+    </div>
+    <div class="tile-item">
+      <div class="tile-dot" style="background:#00FF88;box-shadow:0 0 16px rgba(0,255,136,0.5);"></div>
+      <div>
+        <h4>Green — Safe Zone</h4>
+        <p>Regroup. Catch your breath. It won't last long.</p>
+      </div>
+    </div>
+    <div class="tile-item">
+      <div class="tile-dot" style="background:#FFD600;box-shadow:0 0 16px rgba(255,214,0,0.5);"></div>
+      <div>
+        <h4>Gold — Power Strike</h4>
+        <p>Rare tile. Maximum points. First to reach it wins the round.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="max-width:1200px;margin:0 auto;"></div>
+
+<!-- GAME MODES -->
+<section id="games">
+  <div class="section-label">Game Modes</div>
+  <h2>Strike <span class="accent">Sessions</span></h2>
+  <p class="lead">Every session runs two 18-minute rounds. Multiple game modes keep the grid unpredictable — even regulars never play the same game twice.</p>
+
+  <div class="games-grid">
+    <div class="game-card">
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#00F0FF,#0099FF);"></div>
+      <div class="game-icon">⚡</div>
+      <h3>GRIDSTRIKE</h3>
+      <span class="game-tag" style="color:var(--cyan);">Core Mode</span>
+      <p>The original. Strike every blue tile before time runs out. The grid speeds up. You don't.</p>
+    </div>
+    <div class="game-card">
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#FF2D55,#FF6B00);"></div>
+      <div class="game-icon">🔥</div>
+      <h3>BLACKOUT</h3>
+      <span class="game-tag" style="color:var(--red);">Elimination</span>
+      <p>The entire grid is live. One wrong tile and you're out. Last player standing takes the grid.</p>
+    </div>
+    <div class="game-card">
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#FFD600,#FF9500);"></div>
+      <div class="game-icon">👥</div>
+      <h3>SQUAD STRIKE</h3>
+      <span class="game-tag" style="color:var(--yellow);">Team Mode</span>
+      <p>Divide the grid. Control your zone. The team that lights the most tiles in 18 minutes wins the arena.</p>
+    </div>
+    <div class="game-card">
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#00FF88,#00CCFF);"></div>
+      <div class="game-icon">🏆</div>
+      <h3>POWER GRID</h3>
+      <span class="game-tag" style="color:var(--green);">Challenge Mode</span>
+      <p>Gold tiles only. Appear and vanish in 2 seconds. Hit them all or watch your score collapse.</p>
+    </div>
+    <div class="game-card">
+      <div class="game-color-bar" style="background:linear-gradient(90deg,#AA00FF,#FF2D55);"></div>
+      <div class="game-icon">🌊</div>
+      <h3>WAVE MODE</h3>
+      <span class="game-tag" style="color:#AA00FF;">Survival</span>
+      <p>Strike tiles sweep across the grid in waves. Keep up or fall behind. The waves never stop.</p>
+    </div>
+    <div class="game-card">
+      <div class="game-color-bar" style="background:linear-gradient(90deg,var(--cyan),var(--yellow));"></div>
+      <div class="game-icon">🎉</div>
+      <h3>PARTY STRIKE</h3>
+      <span class="game-tag" style="color:var(--yellow);">All Ages</span>
+      <p>Slower pace. Bigger rewards. Maximum chaos. Designed for mixed groups and first-time players.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="max-width:1200px;margin:0 auto;"></div>
+
+<!-- EXPERIENCE STATS -->
+<section id="experience">
+  <div class="section-label">The Numbers</div>
+  <h2>Built for <span class="accent">Maximum Impact</span></h2>
+  <p class="lead">Every design decision — from tile count to session length — is optimized for the highest energy-per-minute experience in the family entertainment category.</p>
+
+  <div class="exp-grid">
+    <div class="exp-stat">
+      <div class="exp-number">500<span class="exp-unit">+</span></div>
+      <div class="exp-label">LED Tiles Per Arena</div>
+    </div>
+    <div class="exp-stat">
+      <div class="exp-number">18<span class="exp-unit">min</span></div>
+      <div class="exp-label">Per Round — No Dead Time</div>
+    </div>
+    <div class="exp-stat">
+      <div class="exp-number">2<span class="exp-unit">x</span></div>
+      <div class="exp-label">Rounds Per Session</div>
+    </div>
+    <div class="exp-stat">
+      <div class="exp-number">4<span class="exp-unit">+</span></div>
+      <div class="exp-label">Ages — Everyone Plays</div>
+    </div>
+    <div class="exp-stat">
+      <div class="exp-number">8<span class="exp-unit">pp</span></div>
+      <div class="exp-label">Max Players — Main Arena</div>
+    </div>
+    <div class="exp-stat">
+      <div class="exp-number">6<span class="exp-unit">+</span></div>
+      <div class="exp-label">Game Modes at Launch</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="max-width:1200px;margin:0 auto;"></div>
+
+<!-- TAGLINES -->
+<section id="taglines">
+  <div class="section-label">Brand Voice</div>
+  <h2>Tagline <span class="accent">Options</span></h2>
+  <p class="lead">All five taglines are viable. Recommended primary is "THE FLOOR IS LIVE" — it's visceral, instantly communicates the product, and works as a literal description and a hype line simultaneously.</p>
+
+  <div class="tagline-list">
+    <div class="tagline-row primary">
+      <span class="tagline-badge badge-primary">Primary</span>
+      <span class="tagline-text">THE FLOOR IS LIVE</span>
+      <span class="tagline-note">Visceral · Descriptive · Instantly Understood</span>
+    </div>
+    <div class="tagline-row">
+      <span class="tagline-badge badge-alt">Alt</span>
+      <span class="tagline-text">STRIKE AS ONE</span>
+      <span class="tagline-note">Team-focused · Inclusive · Strong for events</span>
+    </div>
+    <div class="tagline-row">
+      <span class="tagline-badge badge-alt">Alt</span>
+      <span class="tagline-text">LIGHT THE GRID</span>
+      <span class="tagline-note">Action · In-game language · Works as CTA</span>
+    </div>
+    <div class="tagline-row">
+      <span class="tagline-badge badge-alt">Alt</span>
+      <span class="tagline-text">THE GRID FIGHTS BACK</span>
+      <span class="tagline-note">Competitive edge · Great for social / launch campaign</span>
+    </div>
+    <div class="tagline-row">
+      <span class="tagline-badge badge-alt">Alt</span>
+      <span class="tagline-text">EVERY TILE COUNTS</span>
+      <span class="tagline-note">Stakes-driven · Calm intensity · Works for ads</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">GRID<span class="strike">STRIKE</span></div>
+  <div class="tagline">THE FLOOR IS LIVE</div>
+  <p>Brand Identity Concept · Confidential · 2025</p>
+</footer>
+
+<script>
+  // ─── ANIMATED TILE FIELD ───
+  const field = document.getElementById('tileField');
+  const colors = ['#00F0FF','#FFD600','#FF2D55','#00FF88','#00F0FF','#00F0FF'];
+  const sizes  = [30, 40, 50, 35, 45];
+
+  for (let i = 0; i < 40; i++) {
+    const tile = document.createElement('div');
+    tile.className = 'tile';
+    const size = sizes[Math.floor(Math.random() * sizes.length)];
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const x = Math.random() * 100;
+    const y = Math.random() * 100;
+    const dur = (2 + Math.random() * 4).toFixed(1) + 's';
+    const delay = (Math.random() * 5).toFixed(1) + 's';
+    tile.style.cssText = `
+      left:${x}%; top:${y}%;
+      width:${size}px; height:${size}px;
+      background:${color};
+      box-shadow: 0 0 ${size/2}px ${color}88;
+      --dur:${dur}; --delay:${delay};
+      animation-duration:${dur}; animation-delay:${delay};
+    `;
+    field.appendChild(tile);
+  }
+</script>
+</body>
+</html>
