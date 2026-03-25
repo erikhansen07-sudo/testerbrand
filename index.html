@@ -378,13 +378,22 @@
     [data-theme="arena"] .wsh-bg::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 30% 60%,rgba(26,110,255,0.08) 0%,transparent 55%); }
     [data-theme="arena"] .wsh-bg::after  { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 70% 40%,rgba(0,229,100,0.06) 0%,transparent 50%); }
 
-    /* Tile grid decoration — tactical & arena heroes */
+    /* ── WS HERO LOGO ── */
+    .wsh-logo { display:flex; align-items:center; gap:1rem; margin-bottom:2rem; }
+    .wsh-logo .icon-mark { width:64px; height:64px; gap:4px; padding:4px; }
+    .wsh-logo .logo-wordmark { line-height:1; }
+    [data-theme="tactical"] .wsh-logo .logo-wordmark { font-family:'Bebas Neue',sans-serif; font-size:3rem; letter-spacing:0.15em; }
+    [data-theme="sport"]    .wsh-logo .logo-wordmark { font-family:'Inter',sans-serif; font-weight:900; font-size:2.5rem; letter-spacing:-0.02em; }
+    [data-theme="arena"]    .wsh-logo .logo-wordmark { font-family:'Orbitron',sans-serif; font-weight:900; font-size:1.8rem; letter-spacing:0.1em; }
+    .wsh-logo .wm-grid { color:var(--white); }
+    .wsh-logo .wm-strike { color:var(--primary); }
+
+    /* Tile grid decoration — all heroes */
     .wsh-tile-grid {
       position:absolute; right:3rem; top:50%; transform:translateY(-50%);
       display:grid; grid-template-columns:repeat(7,1fr); gap:6px;
       opacity:0.7; z-index:1;
     }
-    [data-theme="sport"] .wsh-tile-grid { display:none; }
     .tl { width:40px; height:40px; border-radius:3px; }
     [data-theme="tactical"] .tl { clip-path:polygon(3px 0%,100% 0%,calc(100% - 3px) 100%,0% 100%); border-radius:0; }
     .tl-g { background:#00E564; }
@@ -762,6 +771,10 @@
         <div class="tl tl-g3"></div><div class="tl tl-x"></div><div class="tl tl-g2"></div><div class="tl tl-x"></div><div class="tl tl-r"></div><div class="tl tl-x"></div><div class="tl tl-b"></div>
       </div>
       <div class="wsh-content">
+        <div class="wsh-logo">
+          <div class="icon-mark"><div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-safe"></div><div class="ic ic-off"></div><div class="ic ic-danger"></div><div class="ic ic-off"></div><div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-on"></div></div>
+          <div class="logo-wordmark"><span class="wm-grid">GRID</span><span class="wm-strike">STRIKE</span></div>
+        </div>
         <div class="wsh-eyebrow">Carlsbad, CA — Now Open</div>
         <h1 class="wsh-title">LIGHT.<br>STRIKE.<br><span class="ht-green">CLEAR.</span></h1>
         <p class="wsh-sub">An LED tile arena where every floor tile is a decision. Strike green. Dodge red. Breathe blue. 18 minutes of the most fun you've ever worked for.</p>
@@ -774,8 +787,9 @@
 
     <section class="wss wss-alt">
       <div class="wss-inner">
-        <div class="ws-section-label">How It Works</div>
+        <div class="ws-section-label">THE GRID</div>
         <div class="ws-h2">Three colors. <span class="accent">One mission.</span></div>
+        <div class="ws-lead">Green is your target. Red is the danger. Blue is your only safe zone. Step on the grid — it teaches you in the first 30 seconds. Our first location launches with <strong style="color:var(--white)">3 arenas</strong> so groups never wait.</div>
         <div class="ws-steps">
           <div class="ws-step">
             <div class="ws-step-num">01</div>
@@ -801,28 +815,28 @@
 
     <section class="wss">
       <div class="wss-inner">
-        <div class="ws-section-label">Sessions</div>
+        <div class="ws-section-label">Book</div>
         <div class="ws-h2">Choose your <span class="accent">mission.</span></div>
         <div class="ws-cards">
           <div class="ws-card">
             <div class="ws-card-badge">WALK-IN</div>
-            <div class="ws-card-price">$18<span>/person</span></div>
-            <h3>Strike Session</h3>
-            <p>Two 18-minute rounds. All game modes. Scoreboard tracking. No reservation required.</p>
-            <a class="btn btn-outline">BOOK NOW</a>
+            <div class="ws-card-price" style="font-size:1.4rem;color:var(--gray);">Open Play</div>
+            <h3>Open Session</h3>
+            <p>Walk in and get on the grid. Two 18-minute rounds. All game modes. Scoreboard tracking. No reservation required — subject to availability.</p>
+            <a class="btn btn-outline">CHECK AVAILABILITY</a>
           </div>
           <div class="ws-card ws-card-featured">
-            <div class="ws-card-badge badge-green">BEST VALUE</div>
-            <div class="ws-card-price">$140<span>/group</span></div>
-            <h3>Squad Booking</h3>
-            <p>Up to 8 players. Dedicated game host. Custom game modes. Built for squads, dates, and rivals.</p>
-            <a class="btn btn-primary">BOOK NOW</a>
+            <div class="ws-card-badge badge-green">RESERVED</div>
+            <div class="ws-card-price">From $499<span style="display:block;font-size:0.75rem;color:var(--gray);font-family:var(--f-body);margin-top:0.25rem;">Weekdays from $429</span></div>
+            <h3>Group Night</h3>
+            <p>Up to 8 players. Reserved time slot. Dedicated game host. Custom modes. Built for birthdays, squads, date nights, and rivals.</p>
+            <a class="btn btn-primary">RESERVE NOW</a>
           </div>
           <div class="ws-card">
-            <div class="ws-card-badge">PRIVATE</div>
-            <div class="ws-card-price">From $400</div>
-            <h3>Arena Takeover</h3>
-            <p>Full arena exclusive. Birthdays, corporate events, team challenges. Catering options available.</p>
+            <div class="ws-card-badge">FULL TAKEOVER</div>
+            <div class="ws-card-price">From $1,499</div>
+            <h3>Full Gridout</h3>
+            <p>All 3 arenas. Entire venue, yours exclusively. Birthdays, corporate events, team challenges. Catering and custom programming available.</p>
             <a class="btn btn-outline">INQUIRE</a>
           </div>
         </div>
@@ -857,7 +871,18 @@
 
     <section class="wsh">
       <div class="wsh-bg"></div>
+      <div class="wsh-tile-grid">
+        <div class="tl tl-g"></div><div class="tl tl-x"></div><div class="tl tl-r"></div><div class="tl tl-x"></div><div class="tl tl-g2"></div><div class="tl tl-x"></div><div class="tl tl-b"></div>
+        <div class="tl tl-x"></div><div class="tl tl-g3"></div><div class="tl tl-x"></div><div class="tl tl-g"></div><div class="tl tl-x"></div><div class="tl tl-r"></div><div class="tl tl-x"></div>
+        <div class="tl tl-b"></div><div class="tl tl-x"></div><div class="tl tl-g2"></div><div class="tl tl-x"></div><div class="tl tl-g3"></div><div class="tl tl-x"></div><div class="tl tl-g"></div>
+        <div class="tl tl-x"></div><div class="tl tl-r"></div><div class="tl tl-x"></div><div class="tl tl-b"></div><div class="tl tl-x"></div><div class="tl tl-g"></div><div class="tl tl-x"></div>
+        <div class="tl tl-g3"></div><div class="tl tl-x"></div><div class="tl tl-g2"></div><div class="tl tl-x"></div><div class="tl tl-r"></div><div class="tl tl-x"></div><div class="tl tl-b"></div>
+      </div>
       <div class="wsh-content">
+        <div class="wsh-logo">
+          <div class="icon-mark"><div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-safe"></div><div class="ic ic-off"></div><div class="ic ic-danger"></div><div class="ic ic-off"></div><div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-on"></div></div>
+          <div class="logo-wordmark"><span class="wm-grid">GRID</span><span class="wm-strike">STRIKE</span></div>
+        </div>
         <div class="wsh-eyebrow">Carlsbad, CA — Sessions Daily</div>
         <h1 class="wsh-title"><span class="ht-outline">GRID</span><span class="ht-green">STRIKE</span></h1>
         <p class="wsh-sub">The most athletic thing you'll do indoors. LED floor. Real competition. Zero excuses.</p>
@@ -877,9 +902,9 @@
 
     <section class="wss wss-alt">
       <div class="wss-inner">
-        <div class="ws-section-label">The Rules</div>
+        <div class="ws-section-label">THE GRID</div>
         <div class="ws-h2">Green means <span class="accent">go.</span></div>
-        <div class="ws-lead">Three colors. One floor. Strike green, dodge red, use blue to breathe. No tutorial — you'll figure it out in the first 30 seconds.</div>
+        <div class="ws-lead">Three colors. One floor. Strike green, dodge red, use blue to breathe. No tutorial — you'll figure it out in the first 30 seconds. Our first location has <strong style="color:var(--white)">3 arenas</strong> running simultaneously.</div>
         <div class="ws-steps">
           <div class="ws-step" style="border-top:4px solid #00E564;">
             <div class="ws-step-num">🟢</div>
@@ -902,28 +927,28 @@
 
     <section class="wss">
       <div class="wss-inner">
-        <div class="ws-section-label">Sessions</div>
+        <div class="ws-section-label">Book</div>
         <div class="ws-h2">Pick your <span class="accent">level.</span></div>
         <div class="ws-cards">
           <div class="ws-card">
-            <div class="ws-card-badge">SOLO</div>
-            <div class="ws-card-price">$18<span>/person</span></div>
+            <div class="ws-card-badge">WALK-IN</div>
+            <div class="ws-card-price" style="font-size:1.4rem;color:var(--gray);">Open Play</div>
             <h3>Open Session</h3>
-            <p>Walk in. Play two rounds. Chase your personal best. Leaderboard posted daily.</p>
-            <a class="btn btn-outline">BOOK NOW</a>
+            <p>Walk in and play. Two rounds, all modes, full scoreboard. Subject to availability — no reservation required.</p>
+            <a class="btn btn-outline">CHECK AVAILABILITY</a>
           </div>
           <div class="ws-card ws-card-featured">
-            <div class="ws-card-badge badge-green">SQUAD</div>
-            <div class="ws-card-price">$140<span>/group</span></div>
-            <h3>Squad Battle</h3>
-            <p>Up to 8 players. Head-to-head competition. Your crew vs the grid vs each other.</p>
-            <a class="btn btn-primary">BOOK NOW</a>
+            <div class="ws-card-badge badge-green">RESERVED</div>
+            <div class="ws-card-price">From $499<span style="display:block;font-size:0.75rem;color:var(--gray);font-family:var(--f-body);margin-top:0.25rem;">Weekdays from $429</span></div>
+            <h3>Group Night</h3>
+            <p>Up to 8 players. Reserved arena. Dedicated game host. Your crew vs the grid vs each other.</p>
+            <a class="btn btn-primary">RESERVE NOW</a>
           </div>
           <div class="ws-card">
-            <div class="ws-card-badge">PRIVATE</div>
-            <div class="ws-card-price">From $400</div>
-            <h3>Full Arena</h3>
-            <p>Exclusive arena for your team, event, or party. Corporate packages available.</p>
+            <div class="ws-card-badge">FULL TAKEOVER</div>
+            <div class="ws-card-price">From $1,499</div>
+            <h3>Full Gridout</h3>
+            <p>All 3 arenas, entire venue exclusively yours. Corporate showdowns, team events, epic parties.</p>
             <a class="btn btn-outline">INQUIRE</a>
           </div>
         </div>
@@ -966,6 +991,10 @@
         <div class="tl tl-r"></div><div class="tl tl-x"></div><div class="tl tl-g3"></div><div class="tl tl-x"></div><div class="tl tl-b"></div><div class="tl tl-x"></div><div class="tl tl-g2"></div>
       </div>
       <div class="wsh-content">
+        <div class="wsh-logo">
+          <div class="icon-mark"><div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-safe"></div><div class="ic ic-off"></div><div class="ic ic-danger"></div><div class="ic ic-off"></div><div class="ic ic-on"></div><div class="ic ic-off"></div><div class="ic ic-on"></div></div>
+          <div class="logo-wordmark"><span class="wm-grid">GRID</span><span class="wm-strike">STRIKE</span></div>
+        </div>
         <div class="wsh-eyebrow">Now Open · Carlsbad, CA</div>
         <h1 class="wsh-title">THE GRID<br>IS <span class="ht-green">LIVE.</span></h1>
         <p class="wsh-sub">The arena floor lights up. Tiles shift. The session begins. Tonight, you're playing on the grid.</p>
@@ -993,8 +1022,9 @@
 
     <section class="wss">
       <div class="wss-inner">
-        <div class="ws-section-label">The Experience</div>
+        <div class="ws-section-label">THE GRID</div>
         <div class="ws-h2">Read the <span class="accent">floor.</span></div>
+        <div class="ws-lead">The floor is the game. Three tile colors. No tutorial. You'll know the rules in the first 30 seconds. Our first location opens with <strong style="color:var(--white)">3 arenas</strong> — so there's always a grid ready for your crew.</div>
         <div class="ws-steps">
           <div class="ws-step">
             <div class="ws-step-bar" style="background:#00E564; height:6px; width:100%; margin-bottom:1.5rem; border-radius:0;"></div>
@@ -1017,28 +1047,28 @@
 
     <section class="wss wss-alt">
       <div class="wss-inner">
-        <div class="ws-section-label">Reserve the Arena</div>
+        <div class="ws-section-label">Book</div>
         <div class="ws-h2">Book your <span class="accent">night.</span></div>
         <div class="ws-cards">
           <div class="ws-card">
             <div class="ws-card-badge">WALK-IN</div>
-            <div class="ws-card-price">$18<span>/person</span></div>
+            <div class="ws-card-price" style="font-size:1.4rem;color:var(--gray);">Open Play</div>
             <h3>Open Session</h3>
-            <p>Walk in and play. Two rounds, all modes, full scoreboard. No reservation needed.</p>
-            <a class="btn btn-outline">JOIN TONIGHT</a>
+            <p>Walk in and get on the grid. Two rounds, all modes, full scoreboard. No reservation needed — subject to availability.</p>
+            <a class="btn btn-outline">CHECK AVAILABILITY</a>
           </div>
           <div class="ws-card ws-card-featured">
             <div class="ws-card-badge badge-green">RESERVED</div>
-            <div class="ws-card-price">$140<span>/group</span></div>
+            <div class="ws-card-price">From $499<span style="display:block;font-size:0.75rem;color:var(--gray);font-family:var(--f-body);margin-top:0.25rem;">Weekdays from $429</span></div>
             <h3>Group Night</h3>
-            <p>Up to 8 players. Reserved time slot, game host, custom session. Birthdays, squads, dates.</p>
+            <p>Up to 8 players. Reserved time slot, dedicated game host, custom session. Birthdays, squads, dates.</p>
             <a class="btn btn-primary">RESERVE NOW</a>
           </div>
           <div class="ws-card">
-            <div class="ws-card-badge">EXCLUSIVE</div>
-            <div class="ws-card-price">From $400</div>
-            <h3>Arena Exclusive</h3>
-            <p>The entire arena, yours for the night. Corporate events, private parties, team challenges.</p>
+            <div class="ws-card-badge">FULL TAKEOVER</div>
+            <div class="ws-card-price">From $1,499</div>
+            <h3>Full Gridout</h3>
+            <p>All 3 arenas. The entire venue, exclusively yours. Corporate events, private parties, team challenges.</p>
             <a class="btn btn-outline">INQUIRE</a>
           </div>
         </div>
